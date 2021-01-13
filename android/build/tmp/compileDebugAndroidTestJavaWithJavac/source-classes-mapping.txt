@@ -1,0 +1,4 @@
+de/noahwantoch/rpg/test/R.java
+ de.noahwantoch.rpg.test.R
+de/noahwantoch/rpg/test/BuildConfig.java
+ de.noahwantoch.rpg.test.BuildConfig

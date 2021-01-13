@@ -1,0 +1,55 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\Projekte\\Nemsi\\android\\build\\intermediates\\res\\merged\\debug\\values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "D:\\Projekte\\Nemsi\\android\\res\\values\\color.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
+                    }
+                },
+                {
+                    "source": "D:\\Projekte\\Nemsi\\android\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "475"
+                    },
+                    "to": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "152",
+                        "endLines": "11",
+                        "endColumns": "12",
+                        "endOffsets": "610"
+                    }
+                },
+                {
+                    "source": "D:\\Projekte\\Nemsi\\android\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "56",
+                        "endColumns": "40",
+                        "endOffsets": "92"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "111",
+                        "endColumns": "40",
+                        "endOffsets": "147"
+                    }
+                }
+            ]
+        }
+    ]
+}
