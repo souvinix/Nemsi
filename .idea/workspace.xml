@@ -9,11 +9,27 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="19850761-2329-4cff-8021-0f659a157987" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekt speichern.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,12 +70,13 @@
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Projekte\RPG\android\assets" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projekte\Nemsi" />
       <recent name="D:\Projekte\RPG\android\assets" />
       <recent name="D:\Projekte\RPG\android\assets\Fonts" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projekte\RPG\android\assets" />
     </key>
   </component>
   <component name="RunManager" selected="Application.DesktopLauncher">
@@ -160,11 +177,27 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="657" y="139" key="#DesktopLauncher" timestamp="1609865507753">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="657" y="139" key="#DesktopLauncher/0.0.1920.1040@0.0.1920.1040" timestamp="1609865507753" />
+    <state x="507" y="163" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610528102651">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="507" y="163" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610528102651" />
     <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1609714241229">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -185,22 +218,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="731" y="253" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610438978426" />
-    <state width="1339" height="161" key="GridCell.Tab.0.bottom" timestamp="1610195864027">
+    <state width="1339" height="161" key="GridCell.Tab.0.bottom" timestamp="1610528021965">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1339" height="161" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610195864027" />
-    <state width="1339" height="161" key="GridCell.Tab.0.center" timestamp="1610195864027">
+    <state width="1339" height="161" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610528021965" />
+    <state width="1339" height="161" key="GridCell.Tab.0.center" timestamp="1610528021965">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1339" height="161" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610195864027" />
-    <state width="1339" height="161" key="GridCell.Tab.0.left" timestamp="1610195864027">
+    <state width="1339" height="161" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610528021965" />
+    <state width="1339" height="161" key="GridCell.Tab.0.left" timestamp="1610528021965">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1339" height="161" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610195864027" />
-    <state width="1339" height="161" key="GridCell.Tab.0.right" timestamp="1610195864027">
+    <state width="1339" height="161" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610528021965" />
+    <state width="1339" height="161" key="GridCell.Tab.0.right" timestamp="1610528021965">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1339" height="161" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610195864027" />
+    <state width="1339" height="161" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610528021965" />
     <state width="1876" height="281" key="GridCell.Tab.1.bottom" timestamp="1609823587111">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
