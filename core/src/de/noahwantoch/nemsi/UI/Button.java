@@ -26,7 +26,7 @@ public class Button {
     private float width;
     private float height;
 
-    private String fontDataName = FontEnum.getMainFontDataName();
+    private String fontDataName = FontEnum.Retganon.getFontDataName();
     private de.noahwantoch.nemsi.UI.Font textFont;
     private String text;
 

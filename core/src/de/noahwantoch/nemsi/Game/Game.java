@@ -17,5 +17,17 @@ public class Game {
         return player;
     }
 
+    public static Enemy getRandomEnemy(){
+        Enemy enemy = new Enemy();
+
+        int deckCards = (int) Math.floor(Math.random() * GameSettings.maxCardsPerDeck);
+        int life = (int) Math.round(Math.random() * GameSettings.maxHealth);
+
+        enemy.setDeck(All_Cards.getRandomDeck(deckCards));
+        enemy.setLife(life);
+
+        return enemy;
+    }
+
 
 }

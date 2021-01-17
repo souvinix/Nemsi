@@ -16,7 +16,7 @@ public class Card {
     private int life;
     private int damage;
     private Element element;
-    private String description;
+    //private String description;
 
     private Sprite cardSprite;
     private Sprite elementSprite;
@@ -31,33 +31,21 @@ public class Card {
 
     private Sprite cardBack;
     private boolean covered = true;
+    private float size = 1f;
 
     public Card(String name, int damage, int life, Element element){
         cardSprite = new Sprite(new Texture(TextureEnum.CARD.getPath()));
-        cardSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth, de.noahwantoch.nemsi.Game.GameSettings.cardHeight);
         elementSprite = new Sprite(new Texture(element.getElementPath()));
-        elementSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.elementWidth, de.noahwantoch.nemsi.Game.GameSettings.elementHeight);
         swordSprite = new Sprite(new Texture(TextureEnum.SWORD_SYMBOL.getPath()));
-        swordSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.swordWidth, de.noahwantoch.nemsi.Game.GameSettings.swordHeight);
         shieldSprite = new Sprite(new Texture(TextureEnum.SHIELD_SYMBOL.getPath()));
-        shieldSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.shieldWidth, de.noahwantoch.nemsi.Game.GameSettings.shieldHeight);
+        cardBack = new Sprite(new Texture(TextureEnum.Card_Back.getPath())); //Kartenrücken
 
-        //Der Name, der Schaden und das Leben der Karte können hiermit visualisiert werden
-        textFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * 0.09f, 1);
-        textFont.setColor(0, 0,0,1);
-        damageFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * 0.09f, 1);
-        damageFont.setColor(1, 0.5f,0.5f,0.4f);
-        lifeFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * 0.09f, 1);
-        lifeFont.setColor(0.5f, 1,0.5f,0.4f);
+        reinitialize(1f); //Der Name, der Schaden und das Leben der Karte können hiermit visualisiert werden
 
         this.name = name;
         this.damage = damage;
         this.life = life;
         this.element = element;
-
-        //Kartenrücken
-        cardBack = new Sprite(new Texture(TextureEnum.Card_Back.getPath()));
-        cardBack.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth, de.noahwantoch.nemsi.Game.GameSettings.cardHeight);
     }
 
     public void draw(float delta){
@@ -75,18 +63,48 @@ public class Card {
 
     //Die Position der Karte und der dazugehörigen Objekte werden relativ zur Karte gesetzt/verschoben
     public void setPosition(float x, float y){
-        float symbolY = y + symbolOffset;
-        float symbolOffset_ = de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * 0.3f;
+        float symbolY = y + symbolOffset * size;
+        float symbolOffset_ = (cardSprite.getWidth() * Gdx.graphics.getDensity() * 0.3f) * size;
 
         cardSprite.setPosition(x, y);
         cardBack.setPosition(x, y);
-        textFont.setPosition(x + de.noahwantoch.nemsi.Game.GameSettings.cardWidth / 2f, cardSprite.getY() + de.noahwantoch.nemsi.Game.GameSettings.cardHeight * 0.96f);
+        textFont.setPosition(x + cardSprite.getWidth() / 2f, cardSprite.getY() + cardSprite.getHeight() * 0.96f);
         damageFont.setPosition(x + symbolOffset_, symbolY + symbolOffset_);
-        lifeFont.setPosition(x + de.noahwantoch.nemsi.Game.GameSettings.cardWidth - symbolOffset_ , symbolY + symbolOffset_);
-        elementSprite.setPosition(x + de.noahwantoch.nemsi.Game.GameSettings.cardWidth / 2f - elementSprite.getWidth() / 2f, symbolY);
+        lifeFont.setPosition(x + cardSprite.getWidth() - symbolOffset_ , symbolY + symbolOffset_);
+        elementSprite.setPosition(x + cardSprite.getWidth() / 2f - elementSprite.getWidth() / 2f, symbolY);
         swordSprite.setPosition(x + symbolOffset, symbolY);
-        shieldSprite.setPosition(x + de.noahwantoch.nemsi.Game.GameSettings.cardWidth - GameSettings.shieldWidth - symbolOffset * 1.5f, symbolY);
+        shieldSprite.setPosition(x + cardSprite.getWidth() - shieldSprite.getWidth() - symbolOffset * 1.5f, symbolY);
     }
+
+    /**
+     * @author Noah O. Wantoch
+     * @param size Die Größe der Karte
+     * Die Karte wird mit einer anderen Größe neu-initialisiert
+     */
+    public void reinitialize(float size){
+        this.size = size;
+
+        cardSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth * size, de.noahwantoch.nemsi.Game.GameSettings.cardHeight * size);
+        elementSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.elementWidth * size, de.noahwantoch.nemsi.Game.GameSettings.elementHeight * size);
+        swordSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.swordWidth * size, de.noahwantoch.nemsi.Game.GameSettings.swordHeight * size);
+        shieldSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.shieldWidth * size, de.noahwantoch.nemsi.Game.GameSettings.shieldHeight * size);
+        cardBack.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth * size, de.noahwantoch.nemsi.Game.GameSettings.cardHeight * size);
+
+        textFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.cardFontSize * size, 0);
+        textFont.setColor(0, 0,0,1);
+        damageFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size, 0);
+        damageFont.setColor(1, 0.5f,0.5f,0.8f);
+        lifeFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size, 0);
+        lifeFont.setColor(0.5f, 1,0.5f,0.8f);
+
+        setPosition(getX(), getY());
+    }
+
+    public float getWidth(){
+        return cardSprite.getWidth();
+    }
+
+    public float getSize(){ return size; }
 
     //Erstellt eine Kopie dieser Karte, um auszuschließen, dass man auf die selbe Instanz referenziert
     public Card getCopy(){

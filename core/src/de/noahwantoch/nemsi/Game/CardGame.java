@@ -3,10 +3,15 @@ package de.noahwantoch.nemsi.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
 import de.noahwantoch.nemsi.TextureHandling.TextureEnum;
 import de.noahwantoch.nemsi.Utility.BatchInstance;
 
+/**
+ * @author Noah O. Wantoch
+ * @see de.noahwantoch.nemsi.ScreenHandling.differentScreens.GameScreen
+ * Diese Klasse wird im GameScreen initialisiert.
+ * Sie kümmert sich um das Kartenspiel und alles drumherum
+ */
 public class CardGame {
 
     private static final String TAG = CardGame.class.getSimpleName();
@@ -17,18 +22,24 @@ public class CardGame {
     private boolean state;
     private boolean playerTurn;
 
-    private Sprite board;
+    private final Sprite board;
 
     public CardGame(){
         //Die Chance anzufangen
         float turnChance = (int) (Math.random() * 100f);
-        if(turnChance > 50){ playerTurn = true; } else playerTurn = false;
+
+        if(turnChance > 50) playerTurn = true; //else playerTurn = false
 
         //Die Textur des "Spielbretts"
         board = new Sprite(new Texture(TextureEnum.BOARD.getPath()));
         board.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
+    /**
+     * @author Noah O. Wantoch
+     * @param delta delta
+     * Malt das Spielbrett, den Spieler und den Gegner sowie die ganzen Karten und Zonen.
+     */
     public void draw(float delta){
         de.noahwantoch.nemsi.Utility.BatchInstance.batch.begin();
         board.draw(de.noahwantoch.nemsi.Utility.BatchInstance.batch);
@@ -37,25 +48,44 @@ public class CardGame {
         BatchInstance.batch.end();
     }
 
-    //Der Zug wird gewechselt z.B. von Spieler auf Gegner
+    /**
+     * @author Noah O. Wantoch
+     * Wechselt den Zug von Spieler auf Gegner oder andersherum.
+     */
     public void switchTurn(){
         Gdx.app.debug(TAG, "Turn switched");
         playerTurn = !playerTurn;
     }
 
+    /**
+     * @author Noah O. Wantoch
+     * Beendet das aktuelle Kartenspiel.
+     */
     public void endGame(){
         state = false;
-    } //Das Spiel wird beendet
-    //Das Spiel wird gestartet
+    }
+
+    /**
+     * @author Noah O. Wantoch
+     * @param player Der Spieler.
+     * @param enemy Ein Gegner.
+     * @see Enemy
+     * @see Player
+     * Startet ein Kartenspiel mit einem Spieler und einem Gegner.
+     */
     public void startGame(Player player, Enemy enemy){
         state = true;
         this.player = player;
         this.enemy = enemy;
-        this.player.drawCard(de.noahwantoch.nemsi.Game.GameSettings.handcardsStartNumber);
+        this.player.drawCard(5);
+        //this.player.drawCard(GameSettings.handcardsStartNumber);
         this.enemy.drawCard(GameSettings.handcardsStartNumber);
     }
 
-    //Zustand des Spiels
+    /**
+     * @author Noah O. Wantoch
+     * @return Zustand des Spiels.
+     */
     public boolean getState(){
         return state;
     }

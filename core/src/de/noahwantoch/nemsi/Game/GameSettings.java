@@ -15,9 +15,12 @@ public interface GameSettings {
     int playerStartHealth = 0;
     int maxCardsPerDeck = 40;
     int handcardsStartNumber = 3;
-    float cardSize = 3f;
-    float symbolSize = 3.5f;
+    int maxHealth = 10000;
 
+    float cardSize = 2.5f;
+    float symbolSize = 3f;
+    float cardFontSize = 0.1f;
+    float atkAndDefFontSIze = 0.12f;
     float cardWidth = exampleCard.getWidth() * cardSize;
     float cardHeight = exampleCard.getHeight() * cardSize;
     float elementWidth = exampleElement.getWidth() * symbolSize;
@@ -28,17 +31,20 @@ public interface GameSettings {
     float shieldHeight = exampleShield.getHeight() * symbolSize;
     float widthOffset = Gdx.graphics.getWidth() / 25f * Gdx.graphics.getDensity();
     float heightOffset = Gdx.graphics.getHeight() / 15f * Gdx.graphics.getDensity();
-    float fieldcardOffset = cardWidth * Gdx.graphics.getDensity() * 3f;
+    float fieldcardOffset = cardWidth * 1.2f;
     float handcardOffset = cardWidth * Gdx.graphics.getDensity() * 0.1f;
     float drawCardSeconds = 3.0f;
     float drawSpeed = 10f;
     float drawingDeckOffset = cardWidth / 300f;
+    float fieldcardHeightOffset = Gdx.graphics.getDensity() * 20f;
+    float cardZoom = 1.2f;
 
     interface PlayerPositions{
         Vector2 deckPosition = new Vector2(Gdx.graphics.getWidth() - cardWidth - widthOffset, heightOffset);
         Vector2 graveyardPosition = new Vector2(Gdx.graphics.getWidth() - cardWidth - widthOffset, heightOffset * 2f + cardHeight);
         Vector2 banishedCardsPosition = new Vector2(widthOffset, heightOffset);
         Vector2 handPosition = new Vector2(Gdx.graphics.getWidth() / 2f, heightOffset);
+        float fieldcardY = Gdx.graphics.getHeight() / 2f - cardHeight - fieldcardHeightOffset;
     }
 
     interface EnemyPositions{
@@ -46,5 +52,6 @@ public interface GameSettings {
         Vector2 graveyardPosition = new Vector2(widthOffset, Gdx.graphics.getHeight() - (cardHeight * 2f) - (heightOffset * 2f));
         Vector2 banishedCardsPosition = new Vector2(Gdx.graphics.getWidth() - widthOffset - cardWidth, Gdx.graphics.getHeight() - cardHeight - heightOffset);
         Vector2 handPosition = new Vector2(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() - cardHeight - heightOffset);
+        float fieldcardY = Gdx.graphics.getHeight() / 2f + fieldcardHeightOffset;;
     }
 }

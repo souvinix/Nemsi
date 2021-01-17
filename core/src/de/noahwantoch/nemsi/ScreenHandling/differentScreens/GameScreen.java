@@ -28,7 +28,7 @@ public class GameScreen extends AbstractScreen {
         cardGame = new CardGame();
         worldGame = new WorldGame();
 
-        enemy = new Enemy(); //Später: worldgame.getCurrentEnemy() oder so
+        enemy = Game.getRandomEnemy(); //Später: worldgame.getCurrentEnemy() oder so
         player = Game.getPlayer();
 
         cardGame.startGame(player, enemy);

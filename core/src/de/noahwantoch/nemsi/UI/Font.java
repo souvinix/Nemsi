@@ -48,7 +48,7 @@ public class Font {
             if(text.length() < 5){
                 text = " " + text + " ";
             }
-            textFont.draw(batch, text, position.x - getSize() / 2, position.y, 1, text.length(), getSize(), 1, false, text);
+            textFont.draw(batch, text, position.x - getSize() / 2, position.y, 1, text.length(), getSize(), 1, true, text);
         }
     }
 
@@ -57,7 +57,9 @@ public class Font {
     }
 
     public void setSize(float value){
-        size = value;
+        this.size = value;
+        parameter.size = (int) value;
+        textFont = generator.generateFont(parameter);
     }
 
     public float getSize(){

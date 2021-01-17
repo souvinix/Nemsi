@@ -29,11 +29,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19850761-2329-4cff-8021-0f659a157987" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/assets/Fonts/PrinceValiant.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Card.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/CardGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/CardGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Deck.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Deck.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Enemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/GameSettings$EnemyPositions.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/GameSettings$EnemyPositions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/GameSettings$PlayerPositions.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/GameSettings$PlayerPositions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/GameSettings.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/GameSettings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/PlayingPossibilities.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/PlayingPossibilities.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/ScreenHandling/differentScreens/GameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/ScreenHandling/differentScreens/GameScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/UI/Button.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/UI/Button.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/UI/Font.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/UI/Font.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Utility/FontEnum$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Utility/FontEnum$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Utility/FontEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Utility/FontEnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/GameSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/PlayingPossibilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/PlayingPossibilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/ScreenHandling/differentScreens/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/ScreenHandling/differentScreens/GameScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/UI/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/UI/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/UI/Font.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/UI/Font.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Utility/FontEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Utility/FontEnum.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,18 +105,20 @@
     <property name="ResourceManagerPrefKey.ResourceType" value="DRAWABLE" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/android/assets/Fonts" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projekte\Nemsi\android\assets\Fonts" />
+      <recent name="D:\Projekte\RPG\android\assets" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projekte\Nemsi" />
       <recent name="D:\Projekte\RPG\android\assets" />
       <recent name="D:\Projekte\RPG\android\assets\Fonts" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Projekte\RPG\android\assets" />
     </key>
   </component>
   <component name="RunManager" selected="Application.DesktopLauncher">
@@ -213,6 +252,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="835" y="280" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1609355867302" />
+    <state x="697" y="218" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1610739361791">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="697" y="218" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1610739361791" />
     <state x="92" y="92" width="1736" height="856" key="AVDManager" timestamp="1609099385847">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -221,38 +264,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="731" y="253" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610438978426" />
-    <state width="1876" height="161" key="GridCell.Tab.0.bottom" timestamp="1610659435354">
+    <state width="1876" height="281" key="GridCell.Tab.0.bottom" timestamp="1610832069748">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="161" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610659435354" />
-    <state width="1876" height="161" key="GridCell.Tab.0.center" timestamp="1610659435354">
+    <state width="1876" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610832069748" />
+    <state width="1876" height="281" key="GridCell.Tab.0.center" timestamp="1610832069748">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="161" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610659435354" />
-    <state width="1876" height="161" key="GridCell.Tab.0.left" timestamp="1610659435354">
+    <state width="1876" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610832069748" />
+    <state width="1876" height="281" key="GridCell.Tab.0.left" timestamp="1610832069748">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="161" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610659435354" />
-    <state width="1876" height="161" key="GridCell.Tab.0.right" timestamp="1610659435354">
+    <state width="1876" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610832069748" />
+    <state width="1876" height="281" key="GridCell.Tab.0.right" timestamp="1610832069748">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="161" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610659435354" />
-    <state width="1876" height="281" key="GridCell.Tab.1.bottom" timestamp="1609823587111">
+    <state width="1876" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610832069748" />
+    <state width="1876" height="281" key="GridCell.Tab.1.bottom" timestamp="1610832069748">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="281" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1609823587111" />
-    <state width="1876" height="281" key="GridCell.Tab.1.center" timestamp="1609823587111">
+    <state width="1876" height="281" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610832069748" />
+    <state width="1876" height="281" key="GridCell.Tab.1.center" timestamp="1610832069748">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="281" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1609823587111" />
-    <state width="1876" height="281" key="GridCell.Tab.1.left" timestamp="1609823587111">
+    <state width="1876" height="281" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610832069748" />
+    <state width="1876" height="281" key="GridCell.Tab.1.left" timestamp="1610832069748">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="281" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1609823587111" />
-    <state width="1876" height="281" key="GridCell.Tab.1.right" timestamp="1609823587111">
+    <state width="1876" height="281" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610832069748" />
+    <state width="1876" height="281" key="GridCell.Tab.1.right" timestamp="1610832069748">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="281" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1609823587111" />
+    <state width="1876" height="281" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610832069748" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1609863821457">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -265,9 +308,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1609206139183" />
-    <state x="1127" y="193" width="672" height="678" key="search.everywhere.popup" timestamp="1609382775316">
+    <state x="1127" y="193" width="672" height="678" key="search.everywhere.popup" timestamp="1610810905246">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1127" y="193" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1609382775316" />
+    <state x="1127" y="193" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610810905246" />
   </component>
 </project>

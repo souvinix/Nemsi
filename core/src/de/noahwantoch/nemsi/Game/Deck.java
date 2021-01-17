@@ -10,7 +10,6 @@ public class Deck {
 
     private static final String TAG = Deck.class.getSimpleName();
     private List<Card> cards;
-
     private Vector2 drawingPosition;
 
     public Deck(){
@@ -22,10 +21,11 @@ public class Deck {
         cards = new ArrayList<>();
     }
 
-    public void draw(float delta){
+    public void draw(float delta, float offset){
         for(int i = 0; i < cards.size(); i++){
-            float offset = i * GameSettings.drawingDeckOffset;
-            cards.get(i).setPosition(drawingPosition.x + offset, drawingPosition.y + offset / 2f);
+            float newOffset =  i * offset;
+            float positiveOffset = (float) Math.sqrt(newOffset * newOffset); //der Betrag aus offset
+            cards.get(i).setPosition(drawingPosition.x + newOffset, drawingPosition.y + positiveOffset / 2f);
             cards.get(i).draw(delta);
         }
     }
@@ -85,7 +85,6 @@ public class Deck {
     public Card getCard(int i){
         return cards.get(i);
     }
-
     public int getSize(){
         return cards.size();
     }
