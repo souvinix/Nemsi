@@ -3,6 +3,7 @@ package de.noahwantoch.nemsi.UI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector3;
@@ -37,7 +38,6 @@ public class Font {
         parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS;
         parameter.shadowOffsetY = shadowYOffset;
         parameter.shadowOffsetX = shadowYOffset;
-
         textFont = generator.generateFont(parameter);
 
         generator.dispose();
@@ -54,12 +54,6 @@ public class Font {
 
     public void debug(){
         Gdx.app.debug(TAG, "size: " + size + ", x: " + position.x + ", y: " + position.y);
-    }
-
-    public void setSize(float value){
-        this.size = value;
-        parameter.size = (int) value;
-        textFont = generator.generateFont(parameter);
     }
 
     public float getSize(){

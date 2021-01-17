@@ -59,6 +59,13 @@ public enum Element {
         public Color getColor() {
             return color;
         }
+    },
+
+    NO_ELEMENT{
+        @Override
+        public String getElementPath() {
+            return null;
+        }
     };
 
     public abstract String getElementPath();

@@ -13,6 +13,13 @@ public enum FontEnum {
         public String getFontDataName() {
             return "retganon.ttf";
         }
+    },
+
+    Adamina_Regular{
+        @Override
+        public String getFontDataName() {
+            return "Adamina-Regular.ttf";
+        }
     };
 
     public abstract String getFontDataName();

@@ -2,8 +2,10 @@ package de.noahwantoch.nemsi.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import de.noahwantoch.nemsi.EffectModule;
 import de.noahwantoch.nemsi.TextureHandling.TextureEnum;
 import de.noahwantoch.nemsi.UI.Font;
 import de.noahwantoch.nemsi.Utility.BatchInstance;
@@ -16,7 +18,6 @@ public class Card {
     private int life;
     private int damage;
     private Element element;
-    //private String description;
 
     private Sprite cardSprite;
     private Sprite elementSprite;
@@ -33,7 +34,21 @@ public class Card {
     private boolean covered = true;
     private float size = 1f;
 
+    private Effect effect;
+    private BitmapFont descriptionFont = new BitmapFont(Gdx.files.internal("Adamina-Regular.ttf"), false);;
+    private String description;
+
     public Card(String name, int damage, int life, Element element){
+        this.effect = new Effect("Kein Effekt.", EffectModule.NO_EFFECT, 0);
+        init(name, damage, life, element);
+    }
+
+    public Card(String name, int damage, int life, Element element, Effect effect){
+        this.effect = effect;
+        init(name, damage, life, element);
+    }
+
+    private void init(String name, int damage, int life, Element element){
         cardSprite = new Sprite(new Texture(TextureEnum.CARD.getPath()));
         elementSprite = new Sprite(new Texture(element.getElementPath()));
         swordSprite = new Sprite(new Texture(TextureEnum.SWORD_SYMBOL.getPath()));
@@ -58,6 +73,8 @@ public class Card {
             shieldSprite.draw(BatchInstance.batch);
             damageFont.draw(BatchInstance.batch, Integer.toString(damage));
             lifeFont.draw(BatchInstance.batch, Integer.toString(life));
+
+            descriptionFont.draw(BatchInstance.batch, description, cardSprite.getX() + cardSprite.getWidth() / 2f, cardSprite.getY() + cardSprite.getHeight() / 3f);
         }else cardBack.draw(BatchInstance.batch);
     }
 
@@ -97,7 +114,29 @@ public class Card {
         lifeFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size, 0);
         lifeFont.setColor(0.5f, 1,0.5f,0.8f);
 
+        description = effect.getDescription();
+        description = improveDescription(description);
+
         setPosition(getX(), getY());
+    }
+
+    public String improveDescription(String text){
+
+        int counter = 0;
+        String newText = "";
+
+        for(int i = 0; i < text.length(); i++){
+            newText += Character.toString(text.charAt(i));
+            if(text.charAt(i) == ' ' || text.charAt(i) == '-'){
+                counter += 1;
+            }
+            if(counter >= 2){
+                counter = 0;
+                newText += "\n";
+            }
+        }
+
+        return newText;
     }
 
     public float getWidth(){
@@ -108,7 +147,7 @@ public class Card {
 
     //Erstellt eine Kopie dieser Karte, um auszuschließen, dass man auf die selbe Instanz referenziert
     public Card getCopy(){
-        return new Card(name, damage, life, element);
+        return new Card(name, damage, life, element, effect);
     }
 
     public String getName(){ return name; }
