@@ -69,7 +69,7 @@ public class Button {
             BatchInstance.batch.draw(textureRegions[state], offsetX, offsetY, 0, 0, width, height, size, size, 0);
 
             if(!text.isEmpty()) {
-                textFont.draw(BatchInstance.batch, text);
+                textFont.draw(BatchInstance.batch);
             }
 
             if(isPressed){
@@ -113,9 +113,6 @@ public class Button {
     }
 
     public void setText(String string){
-        if(string.length() < 5){
-            string = " " + string + " ";
-        }
         text = string;
     }
 
@@ -130,7 +127,7 @@ public class Button {
         width = texture.getWidth() / 2f;
         height = texture.getHeight();
 
-        textFont = new Font(fontDataName, size * 10f, 2);
+        textFont = new Font(fontDataName, (int) (size * 10f), text);
         textFont.setPosition(x, y + texture.getHeight());
         textFont.setColor(0f, 0f, 0f, 1f);
 

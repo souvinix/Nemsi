@@ -33,10 +33,11 @@ public class Card {
     private Sprite cardBack;
     private boolean covered = true;
     private float size = 1f;
+    private int rowLength = 15;
 
     private Effect effect;
-    private BitmapFont descriptionFont = new BitmapFont(Gdx.files.internal("Adamina-Regular.ttf"), false);;
-    private String description;
+    private Font descriptionFont;
+    private int cutDescription = 3;
 
     public Card(String name, int damage, int life, Element element){
         this.effect = new Effect("Kein Effekt.", EffectModule.NO_EFFECT, 0);
@@ -55,26 +56,26 @@ public class Card {
         shieldSprite = new Sprite(new Texture(TextureEnum.SHIELD_SYMBOL.getPath()));
         cardBack = new Sprite(new Texture(TextureEnum.Card_Back.getPath())); //Kartenrücken
 
-        reinitialize(1f); //Der Name, der Schaden und das Leben der Karte können hiermit visualisiert werden
-
         this.name = name;
         this.damage = damage;
         this.life = life;
         this.element = element;
+
+        reinitialize(1f); //Der Name, der Schaden und das Leben der Karte können hiermit visualisiert werden
     }
 
     public void draw(float delta){
         //covered = "umgedreht" --> man sieht den Kartenrücken
         if(!covered){
             cardSprite.draw(BatchInstance.batch);
-            textFont.draw(BatchInstance.batch, name);
+            textFont.draw(BatchInstance.batch);
             elementSprite.draw(BatchInstance.batch);
             swordSprite.draw(BatchInstance.batch);
             shieldSprite.draw(BatchInstance.batch);
-            damageFont.draw(BatchInstance.batch, Integer.toString(damage));
-            lifeFont.draw(BatchInstance.batch, Integer.toString(life));
+            damageFont.draw(BatchInstance.batch);
+            lifeFont.draw(BatchInstance.batch);
 
-            descriptionFont.draw(BatchInstance.batch, description, cardSprite.getX() + cardSprite.getWidth() / 2f, cardSprite.getY() + cardSprite.getHeight() / 3f);
+            descriptionFont.draw(BatchInstance.batch);
         }else cardBack.draw(BatchInstance.batch);
     }
 
@@ -91,6 +92,7 @@ public class Card {
         elementSprite.setPosition(x + cardSprite.getWidth() / 2f - elementSprite.getWidth() / 2f, symbolY);
         swordSprite.setPosition(x + symbolOffset, symbolY);
         shieldSprite.setPosition(x + cardSprite.getWidth() - shieldSprite.getWidth() - symbolOffset * 1.5f, symbolY);
+        descriptionFont.setPosition(x + cardSprite.getWidth() / 2f, y + cardSprite.getHeight() / 3f);
     }
 
     /**
@@ -107,36 +109,17 @@ public class Card {
         shieldSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.shieldWidth * size, de.noahwantoch.nemsi.Game.GameSettings.shieldHeight * size);
         cardBack.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth * size, de.noahwantoch.nemsi.Game.GameSettings.cardHeight * size);
 
-        textFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.cardFontSize * size, 0);
+        textFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.cardFontSize * size), name);
         textFont.setColor(0, 0,0,1);
-        damageFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size, 0);
+        damageFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(damage));
         damageFont.setColor(1, 0.5f,0.5f,0.8f);
-        lifeFont = new Font(FontEnum.getMainFontDataName(), de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size, 0);
+        lifeFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(life));
         lifeFont.setColor(0.5f, 1,0.5f,0.8f);
-
-        description = effect.getDescription();
-        description = improveDescription(description);
+        descriptionFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), (int) GameSettings.descriptionSize, effect.getDescription());
+        descriptionFont.wrapText(rowLength);
+        descriptionFont.setColor(0, 0, 0, 1);
 
         setPosition(getX(), getY());
-    }
-
-    public String improveDescription(String text){
-
-        int counter = 0;
-        String newText = "";
-
-        for(int i = 0; i < text.length(); i++){
-            newText += Character.toString(text.charAt(i));
-            if(text.charAt(i) == ' ' || text.charAt(i) == '-'){
-                counter += 1;
-            }
-            if(counter >= 2){
-                counter = 0;
-                newText += "\n";
-            }
-        }
-
-        return newText;
     }
 
     public float getWidth(){
