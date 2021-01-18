@@ -24,6 +24,8 @@ public class CardGame {
 
     private final Sprite board;
 
+    private MessageBox messageBox;
+
     public CardGame(){
         //Die Chance anzufangen
         float turnChance = (int) (Math.random() * 100f);
@@ -33,6 +35,8 @@ public class CardGame {
         //Die Textur des "Spielbretts"
         board = new Sprite(new Texture(TextureEnum.BOARD.getPath()));
         board.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        messageBox = new MessageBox("Ein Kartenspiel wurde initialisiert. :)", 5, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
+        messageBox.showMessage();
     }
 
     /**
@@ -45,6 +49,10 @@ public class CardGame {
         board.draw(de.noahwantoch.nemsi.Utility.BatchInstance.batch);
         player.draw(delta);
         enemy.draw(delta);
+
+        if(messageBox.showMessageBox()){
+            messageBox.draw(BatchInstance.batch, delta);
+        }
         BatchInstance.batch.end();
     }
 

@@ -13,7 +13,7 @@ import de.noahwantoch.nemsi.Utility.TouchDetector;
 
 public class Button {
     private static final String TAG = Button.class.getSimpleName();
-    private static final float SECONDS_TO_LOAD = 0.3f;
+    private float secondsToLoad = 0.15f;
 
     private float x;
     private float y;
@@ -42,6 +42,8 @@ public class Button {
     private TextureEnum textureEnum = TextureEnum.BUTTON;
 
     private boolean functionEnabled = true;
+    private boolean screenCalling = true;
+    private boolean isPressedDelayed = false;
 
     public Button(TextureEnum textureEnum, float x, float y, float size, String text){
         this.textureEnum = textureEnum;
@@ -53,6 +55,14 @@ public class Button {
 
     //texture 0 or 1 represents the state of the button
     public Button(float x, float y, float size, String text){
+        setSize(size);
+        setPosition(x, y);
+        setText(text);
+        initialize();
+    }
+
+    public Button(float x, float y, float size, String text, boolean screenCalling){
+        this.screenCalling = screenCalling;
         setSize(size);
         setPosition(x, y);
         setText(text);
@@ -76,8 +86,9 @@ public class Button {
                 counter += delta;
             }
 
-            if(counter >= SECONDS_TO_LOAD){
+            if(counter >= secondsToLoad){
                 if(functionEnabled) function();
+                isPressedDelayed = true;
             }
 
             //Wenn der Button gedrückt wird
@@ -105,7 +116,9 @@ public class Button {
     public void function(){
         isPressed = false;
 
-        ScreenHandler.getInstance().setCurrentScreen(currentScreen);
+        if(screenCalling){
+            ScreenHandler.getInstance().setCurrentScreen(currentScreen);
+        }
     }
 
     public void setSize(float value){
@@ -137,6 +150,16 @@ public class Button {
         offsetY = y - ((height / 2f) * size);
 
         isDisposed = false;
+    }
+
+    //Instant detection
+    public boolean isPressed(){
+        return isPressed;
+    }
+
+    //Delayed detection
+    public boolean isPressedDelayed(){
+        return isPressedDelayed;
     }
 
     public void dispose(){
