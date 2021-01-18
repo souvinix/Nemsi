@@ -2,7 +2,6 @@ package de.noahwantoch.nemsi.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import de.noahwantoch.nemsi.EffectModule;
@@ -36,16 +35,27 @@ public class Card {
     private int rowLength = 15;
 
     private Effect effect;
+    private Tribute tribute;
+    private Font tributeFont; //could be null after initialization
+    private Sprite tributeSprite; //could be null after initialization
+
     private Font descriptionFont;
-    private int cutDescription = 3;
 
     public Card(String name, int damage, int life, Element element){
         this.effect = new Effect("Kein Effekt.", EffectModule.NO_EFFECT, 0);
+        this.tribute = new Tribute(Element.NO_ELEMENT, 0);
         init(name, damage, life, element);
     }
 
     public Card(String name, int damage, int life, Element element, Effect effect){
         this.effect = effect;
+        this.tribute = new Tribute(Element.NO_ELEMENT, 0);
+        init(name, damage, life, element);
+    }
+
+    public Card(String name, int damage, int life, Element element, Effect effect, Tribute tribute){
+        this.effect = effect;
+        this.tribute = tribute;
         init(name, damage, life, element);
     }
 
@@ -55,6 +65,7 @@ public class Card {
         swordSprite = new Sprite(new Texture(TextureEnum.SWORD_SYMBOL.getPath()));
         shieldSprite = new Sprite(new Texture(TextureEnum.SHIELD_SYMBOL.getPath()));
         cardBack = new Sprite(new Texture(TextureEnum.Card_Back.getPath())); //Kartenrücken
+        tributeSprite = new Sprite(new Texture(tribute.getNeededElement().getElementPath()));
 
         this.name = name;
         this.damage = damage;
@@ -74,8 +85,12 @@ public class Card {
             shieldSprite.draw(BatchInstance.batch);
             damageFont.draw(BatchInstance.batch);
             lifeFont.draw(BatchInstance.batch);
-
             descriptionFont.draw(BatchInstance.batch);
+
+            if(tribute.getNeededCards() > 0){
+                tributeSprite.draw(BatchInstance.batch);
+                tributeFont.draw(BatchInstance.batch);
+            }
         }else cardBack.draw(BatchInstance.batch);
     }
 
@@ -93,6 +108,9 @@ public class Card {
         swordSprite.setPosition(x + symbolOffset, symbolY);
         shieldSprite.setPosition(x + cardSprite.getWidth() - shieldSprite.getWidth() - symbolOffset * 1.5f, symbolY);
         descriptionFont.setPosition(x + cardSprite.getWidth() / 2f, y + cardSprite.getHeight() / 3f);
+
+        tributeSprite.setPosition(x + cardSprite.getWidth() * 0.84f, y + cardSprite.getHeight() * 0.41f);
+        tributeFont.setPosition(x + cardSprite.getWidth() * 0.78f, y + cardSprite.getHeight() * 0.47f);
     }
 
     /**
@@ -108,6 +126,7 @@ public class Card {
         swordSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.swordWidth * size, de.noahwantoch.nemsi.Game.GameSettings.swordHeight * size);
         shieldSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.shieldWidth * size, de.noahwantoch.nemsi.Game.GameSettings.shieldHeight * size);
         cardBack.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth * size, de.noahwantoch.nemsi.Game.GameSettings.cardHeight * size);
+        tributeSprite.setSize((GameSettings.elementWidth / 3f) * size, (GameSettings.elementHeight / 3f)* size);
 
         textFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.cardFontSize * size), name);
         textFont.setColor(0, 0,0,1);
@@ -118,9 +137,13 @@ public class Card {
         descriptionFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), (int) GameSettings.descriptionSize, effect.getDescription());
         descriptionFont.wrapText(rowLength);
         descriptionFont.setColor(0, 0, 0, 1);
+        tributeFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), (int) (GameSettings.descriptionSize * size), tribute.getNeededCards() + "x");
+        tributeFont.setColor(0f, 0f, 0f, 0.5f);
 
         setPosition(getX(), getY());
     }
+
+    public Element getElement(){ return element; }
 
     public float getWidth(){
         return cardSprite.getWidth();
@@ -130,7 +153,7 @@ public class Card {
 
     //Erstellt eine Kopie dieser Karte, um auszuschließen, dass man auf die selbe Instanz referenziert
     public Card getCopy(){
-        return new Card(name, damage, life, element, effect);
+        return new Card(name, damage, life, element, effect, tribute);
     }
 
     public String getName(){ return name; }

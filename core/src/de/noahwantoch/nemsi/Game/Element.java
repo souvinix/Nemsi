@@ -12,9 +12,6 @@ public enum Element {
         public String getElementPath() {
             return TextureEnum.FIRE_SYMBOL.getPath();
         }
-        public Color getColor() {
-            return color;
-        }
     },
 
     ANTIMATTER{
@@ -22,9 +19,6 @@ public enum Element {
         @Override
         public String getElementPath() {
             return TextureEnum.ANTIMATTER_SYMBOL.getPath();
-        }
-        public Color getColor() {
-            return color;
         }
     },
 
@@ -34,9 +28,6 @@ public enum Element {
         public String getElementPath() {
             return TextureEnum.ICE_SYMBOL.getPath();
         }
-        public Color getColor() {
-            return color;
-        }
     },
 
     NATURE{
@@ -44,9 +35,6 @@ public enum Element {
         @Override
         public String getElementPath() {
             return TextureEnum.NATURE_SYMBOL.getPath();
-        }
-        public Color getColor() {
-            return color;
         }
     },
 
@@ -56,15 +44,12 @@ public enum Element {
         public String getElementPath() {
             return TextureEnum.WIND_SYMBOL.getPath();
         }
-        public Color getColor() {
-            return color;
-        }
     },
 
     NO_ELEMENT{
         @Override
         public String getElementPath() {
-            return null;
+            return TextureEnum.NO_ELEMENT.getPath();
         }
     };
 

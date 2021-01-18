@@ -59,6 +59,18 @@ public enum TextureEnum {
 
     STAPEL_ZONE{
         public String getPath(){ return "stapel_zone.png"; }
+    },
+
+    NO_ELEMENT{
+        public String getPath(){
+            return "question_mark.png";
+        }
+    },
+
+    MESSAGE_BOX{
+        public String getPath() {
+            return "message_box.png";
+        }
     };
 
     public abstract String getPath();
