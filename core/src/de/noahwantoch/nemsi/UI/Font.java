@@ -52,6 +52,7 @@ public class Font {
     }
 
     public void wrapText(int rowLength){
+        offset = 0;
         ArrayList<String> words = new ArrayList<>();
         String currentWord = "";
 
@@ -90,6 +91,7 @@ public class Font {
     }
 
     public void wrapTextByCut(int cut){
+        offset = 0;
         int counter = 0;
         int wordCounter = 0;
         String newText = "";

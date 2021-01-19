@@ -40,6 +40,7 @@ public interface GameSettings {
     float cardZoom = 1.1f;
     float descriptionSize = 10f;
     int messageBoxSize = 5;
+    int cardsPerTurn = 2;
 
     interface PlayerPositions{
         Vector2 deckPosition = new Vector2(Gdx.graphics.getWidth() - cardWidth - widthOffset, heightOffset);

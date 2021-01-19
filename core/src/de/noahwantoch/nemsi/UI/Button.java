@@ -121,6 +121,12 @@ public class Button {
         }
     }
 
+    public void reset(){
+        isPressedDelayed = false;
+        isPressed = false;
+        counter = 0;
+    }
+
     public void setSize(float value){
         size = value;
     }

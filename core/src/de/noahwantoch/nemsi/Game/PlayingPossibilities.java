@@ -45,8 +45,14 @@ public class PlayingPossibilities {
     public float heightOffset; //Die Höhe der Handkarten / des Decks
     public float hoveringOffset; //Wie viele px soll die Karte nach oben/unten gehen, wenn man über sie drüber "fährt"/"hovered"
 
+    public int cardsPerTurn = GameSettings.cardsPerTurn;
+    public int cardCounter;
+
     public MessageBox okayMessageBox;
     public MessageBox yesNoMessageBox;
+
+    public boolean summonCard = false;
+    public int currentSummonIndex = 0;
 
     public PlayingPossibilities(){
         deck = new de.noahwantoch.nemsi.Game.Deck();
@@ -162,6 +168,12 @@ public class PlayingPossibilities {
 
         okayMessageBox.draw(BatchInstance.batch, delta);
         yesNoMessageBox.draw(BatchInstance.batch, delta);
+
+        if(!yesNoMessageBox.getState()){
+            if(yesNoMessageBox.getResult()){
+                summonDirectly(currentSummonIndex);
+            }
+        }
     }
 
     /**
@@ -245,15 +257,55 @@ public class PlayingPossibilities {
      * Bringt die Karte handcards.get(index) auf das Spielfeld
      */
     public void playCard(int index){
+        boolean summon = false;
         Card card = handcards.get(index);
 
-        //Wenn kein Tribut möglich ist, weil die Feldkarten zu klein sind
-        if(card.getTribute().getNeededCards() < fieldcards.size()){
-            okayMessageBox.showMessage("Du kannst diese Karte nicht spielen.");
-        }else{
-            fieldcards.add(card);
-            handcards.remove(index);
+        if(card.getTribute().getNeededCards() > fieldcards.size()){ //Wenn (erst) kein Tribut möglich ist, weil die Feldkarten zu klein sind
+            okayMessageBox.showMessage("Du brauchst mindestens: " + card.getTribute().getNeededCards() + " Karten auf dem Spielfeld zum opfern.");
         }
+
+        if(card.getTribute().getNeededCards() <= fieldcards.size()){ //Wenn genug Feldkarten existieren
+            if(card.getTribute().getNeededElement() != Element.NO_ELEMENT){ //Wenn das Element eine Rolle spielt bei der Tributbeschwörung
+                int counter = 0; //Zähler der gültigen Elemente
+                for(Card fieldcard : fieldcards){
+                    if(fieldcard.getElement() == card.getTribute().getNeededElement()){ //Wie viele Feldkarten haben das gewünschte Zielelement
+                        counter += 1;
+                    }
+                }
+                if(counter >= card.getTribute().getNeededCards()){ //Erfolgreiche Beschwörung
+                    summon = true;
+                }else{
+                    okayMessageBox.showMessage("Du brauchst mindestens: " + card.getTribute().getNeededCards() + " Karten auf dem Spielfeld von dem Element: " + card.getTribute().getNeededElement().toString());
+                }
+            }else{ //Wenn das Element (erst) keine Rolle spielt bei der Beschwörung
+                summon = true;
+            }
+
+            if(cardCounter == cardsPerTurn){
+                okayMessageBox.showMessage("Du hast diese Runde leider schon " + cardCounter + " Karten gespielt :(.");
+                summon = false;
+            }
+
+            if(summon){
+                yesNoMessageBox.showMessage("Möchtest du die Karte: " + card.getName() + " beschwören?");
+                summonCard = true;
+                currentSummonIndex = index;
+            }
+        }
+    }
+
+    public void summonDirectly(int handcardIndex){
+        if(summonCard){ //Wenn eine Beschwörung erlaubt ist
+            if(handcardIndex < handcards.size()){ //Wenn es den Index in handcards gibt
+                Card card = handcards.get(handcardIndex);
+                cardCounter += 1;
+                fieldcards.add(card);
+                handcards.remove(handcardIndex);
+            }
+        }
+
+        currentSummonIndex = 0;
+        summonCard = false;
     }
 
     /**

@@ -65,8 +65,8 @@ public class MessageBox {
             }
 
             if(buttonTrue.isPressedDelayed()){
-                state = false;
                 result = true;
+                state = false;
             }
             else if(buttonFalse.isPressedDelayed()){
                 state = false;
@@ -75,14 +75,20 @@ public class MessageBox {
         }
     }
 
+    public boolean getState(){ return state; }
+
     public boolean getResult(){ return result; }
 
     public boolean showMessageBox(){
+        result = false;
         return state;
     }
 
     public void showMessage(String message){
+        result = false;
         state = true;
+        buttonFalse.reset();
+        buttonTrue.reset();
         this.message = message;
         messageFont.setText(message);
         messageFont.wrapText(wrap);
