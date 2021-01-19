@@ -45,6 +45,9 @@ public class PlayingPossibilities {
     public float heightOffset; //Die Höhe der Handkarten / des Decks
     public float hoveringOffset; //Wie viele px soll die Karte nach oben/unten gehen, wenn man über sie drüber "fährt"/"hovered"
 
+    public MessageBox okayMessageBox;
+    public MessageBox yesNoMessageBox;
+
     public PlayingPossibilities(){
         deck = new de.noahwantoch.nemsi.Game.Deck();
         graveyard = new de.noahwantoch.nemsi.Game.Deck();
@@ -69,6 +72,9 @@ public class PlayingPossibilities {
         currentPlayingCards = new ArrayList<>();
 
         touchDetector = new TouchDetector();
+
+        okayMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
+        yesNoMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
     }
 
     /**
@@ -153,6 +159,9 @@ public class PlayingPossibilities {
         for(Card handcard : handcards){
             handcard.draw(delta);
         }
+
+        okayMessageBox.draw(BatchInstance.batch, delta);
+        yesNoMessageBox.draw(BatchInstance.batch, delta);
     }
 
     /**
@@ -237,8 +246,14 @@ public class PlayingPossibilities {
      */
     public void playCard(int index){
         Card card = handcards.get(index);
-        fieldcards.add(card);
-        handcards.remove(index);
+
+        //Wenn kein Tribut möglich ist, weil die Feldkarten zu klein sind
+        if(card.getTribute().getNeededCards() < fieldcards.size()){
+            okayMessageBox.showMessage("Du kannst diese Karte nicht spielen.");
+        }else{
+            fieldcards.add(card);
+            handcards.remove(index);
+        }
     }
 
     /**

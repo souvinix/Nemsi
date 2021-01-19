@@ -25,6 +25,8 @@ public class MessageBox {
     private boolean state = false;
     private boolean result = false;
 
+    private int wrap = 20;
+
     public MessageBox(String message, int size, MessageBoxType type){
         this.message = message;
         this.sprite = new Sprite(new Texture(TextureEnum.MESSAGE_BOX.getPath()));
@@ -35,7 +37,7 @@ public class MessageBox {
         messageFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), size * 4, message);
         messageFont.setColor(0f, 0f, 0f, 1f);
         messageFont.setPosition(position.x + sprite.getWidth() / 2f, position.y + sprite.getHeight() * 0.8f);
-        messageFont.wrapText(20);
+        messageFont.wrapText(wrap);
 
         float buttonHeight = position.y + sprite.getHeight() * 0.3f;
         float buttonSize = size / 2f;
@@ -53,29 +55,42 @@ public class MessageBox {
     }
 
     public void draw(SpriteBatch batch, float delta){
-        sprite.draw(batch);
-        messageFont.draw(batch);
-        buttonTrue.draw(delta);
+        if(state){
+            sprite.draw(batch);
+            messageFont.draw(batch);
+            buttonTrue.draw(delta);
 
-        if(type == MessageBoxType.YES_NO_MESSAGE_BOX){
-            buttonFalse.draw(delta);
-        }
+            if(type == MessageBoxType.YES_NO_MESSAGE_BOX){
+                buttonFalse.draw(delta);
+            }
 
-        if(buttonTrue.isPressedDelayed()){
-            state = false;
-            result = true;
-        }
-        else if(buttonFalse.isPressedDelayed()){
-            state = false;
-            result = false;
+            if(buttonTrue.isPressedDelayed()){
+                state = false;
+                result = true;
+            }
+            else if(buttonFalse.isPressedDelayed()){
+                state = false;
+                result = false;
+            }
         }
     }
+
+    public boolean getResult(){ return result; }
 
     public boolean showMessageBox(){
         return state;
     }
 
-    public void showMessage(){ state = true; }
+    public void showMessage(String message){
+        state = true;
+        this.message = message;
+        messageFont.setText(message);
+        messageFont.wrapText(wrap);
+    }
+
+    public void showMessage(){
+        state = true;
+    }
 
     public enum MessageBoxType{
         YES_NO_MESSAGE_BOX,

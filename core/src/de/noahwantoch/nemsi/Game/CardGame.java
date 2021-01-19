@@ -35,7 +35,7 @@ public class CardGame {
         //Die Textur des "Spielbretts"
         board = new Sprite(new Texture(TextureEnum.BOARD.getPath()));
         board.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        messageBox = new MessageBox("Ein Kartenspiel wurde initialisiert. :)", 5, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
+        messageBox = new MessageBox("Ein Kartenspiel wurde initialisiert. :)", GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
         messageBox.showMessage();
     }
 

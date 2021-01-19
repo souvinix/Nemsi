@@ -109,6 +109,10 @@ public class Font {
         text = newText;
     }
 
+    public void setText(String text){
+        this.text = text;
+    }
+
     public void draw(SpriteBatch batch){
         if(!isDisposed()){
             textFont.draw(batch, text, position.x, position.y + offset, 0, 1, true);

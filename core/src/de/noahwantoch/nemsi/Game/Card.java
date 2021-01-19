@@ -94,6 +94,8 @@ public class Card {
         }else cardBack.draw(BatchInstance.batch);
     }
 
+    public Tribute getTribute(){ return tribute; }
+
     //Die Position der Karte und der dazugehörigen Objekte werden relativ zur Karte gesetzt/verschoben
     public void setPosition(float x, float y){
         float symbolY = y + symbolOffset * size;

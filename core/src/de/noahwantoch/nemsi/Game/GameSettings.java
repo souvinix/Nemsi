@@ -39,6 +39,7 @@ public interface GameSettings {
     float fieldcardHeightOffset = Gdx.graphics.getDensity() * 20f;
     float cardZoom = 1.1f;
     float descriptionSize = 10f;
+    int messageBoxSize = 5;
 
     interface PlayerPositions{
         Vector2 deckPosition = new Vector2(Gdx.graphics.getWidth() - cardWidth - widthOffset, heightOffset);
