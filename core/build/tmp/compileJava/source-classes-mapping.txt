@@ -88,6 +88,8 @@ de/noahwantoch/nemsi/ScreenHandling/differentScreens/GameScreen.java
 de/noahwantoch/nemsi/Game/MessageBox.java
  de.noahwantoch.nemsi.Game.MessageBox
  de.noahwantoch.nemsi.Game.MessageBox$MessageBoxType
+de/noahwantoch/nemsi/Game/TributeHandler.java
+ de.noahwantoch.nemsi.Game.TributeHandler
 de/noahwantoch/nemsi/Game/PlayingPossibilities.java
  de.noahwantoch.nemsi.Game.PlayingPossibilities
 de/noahwantoch/nemsi/Game/Player.java

@@ -54,6 +54,8 @@ public class PlayingPossibilities {
     public boolean summonCard = false;
     public int currentSummonIndex = 0;
 
+    public TributeHandler tributeHandler;
+
     public PlayingPossibilities(){
         deck = new de.noahwantoch.nemsi.Game.Deck();
         graveyard = new de.noahwantoch.nemsi.Game.Deck();
@@ -81,6 +83,8 @@ public class PlayingPossibilities {
 
         okayMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
         yesNoMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
+
+        this.tributeHandler = new TributeHandler();
     }
 
     /**
@@ -169,9 +173,15 @@ public class PlayingPossibilities {
         okayMessageBox.draw(BatchInstance.batch, delta);
         yesNoMessageBox.draw(BatchInstance.batch, delta);
 
+        //Eine Karte wird beschworen
         if(!yesNoMessageBox.getState()){
-            if(yesNoMessageBox.getResult()){
-                summonDirectly(currentSummonIndex);
+            if(yesNoMessageBox.getResult()){ // Wenn "Ja" gedrückt wurde
+                if(handcards.get(currentSummonIndex).getTribute().getNeededCards() > 0){ //Wenn ein oder mehrere tribute erforderlich sind
+                    //Auswahl der Monster
+
+                }else{
+                    summonDirectly(currentSummonIndex);
+                }
             }
         }
     }
