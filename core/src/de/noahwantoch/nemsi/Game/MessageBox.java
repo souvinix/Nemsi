@@ -68,11 +68,16 @@ public class MessageBox {
                 result = true;
                 state = false;
             }
-            else if(buttonFalse.isPressedDelayed()){
+
+            if(buttonFalse.isPressedDelayed()){
                 state = false;
                 result = false;
             }
         }
+    }
+
+    public void reset(){
+        result = false;
     }
 
     public boolean getState(){ return state; }

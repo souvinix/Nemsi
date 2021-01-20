@@ -53,13 +53,27 @@ public class PlayingPossibilities {
 
     public boolean summonCard = false;
     public int currentSummonIndex = 0;
+    public boolean selectingTributes = false;
 
     public TributeHandler tributeHandler;
+
+    public ArrayList<Integer> selectedFieldcards;
+    public ArrayList<Integer> selectedHandcards;
+    public ArrayList<Integer> selectedGraveyardcards;
+    public ArrayList<Integer> selectedBanishedCards;
+    public ArrayList<Integer> selectedEnemyCards;
+
 
     public PlayingPossibilities(){
         deck = new de.noahwantoch.nemsi.Game.Deck();
         graveyard = new de.noahwantoch.nemsi.Game.Deck();
         banishedCards = new de.noahwantoch.nemsi.Game.Deck();
+
+        selectedFieldcards = new ArrayList<>();
+        selectedHandcards = new ArrayList<>();
+        selectedGraveyardcards = new ArrayList<>();
+        selectedBanishedCards = new ArrayList<>();
+        selectedEnemyCards = new ArrayList<>();
 
         handcards = new ArrayList<>();
         fieldcards = new ArrayList<>();
@@ -163,7 +177,9 @@ public class PlayingPossibilities {
         }
 
         //Touch-Detection wird erkannt
-        checkForInteraction();
+        if(!okayMessageBox.getState() && !yesNoMessageBox.getState()){
+            checkForInteraction();
+        }
 
         //Handkarten werden gemalt
         for(Card handcard : handcards){
@@ -173,16 +189,63 @@ public class PlayingPossibilities {
         okayMessageBox.draw(BatchInstance.batch, delta);
         yesNoMessageBox.draw(BatchInstance.batch, delta);
 
-        //Eine Karte wird beschworen
-        if(!yesNoMessageBox.getState()){
-            if(yesNoMessageBox.getResult()){ // Wenn "Ja" gedrückt wurde
-                if(handcards.get(currentSummonIndex).getTribute().getNeededCards() > 0){ //Wenn ein oder mehrere tribute erforderlich sind
-                    //Auswahl der Monster
-
-                }else{
-                    summonDirectly(currentSummonIndex);
+        if(!selectingTributes){ //Wenn man gerade keine Karten für eine Tributbeschwörung auswählt
+            //Eine Karte wird beschworen
+            if(!yesNoMessageBox.getState() && !okayMessageBox.getState()){
+                if(yesNoMessageBox.getResult()){ // Wenn "Ja" gedrückt wurde
+                    if(handcards.get(currentSummonIndex).getTribute().getNeededCards() > 0){ //Wenn ein oder mehrere tribute erforderlich sind
+                        Gdx.app.debug("BUG", "currentSummonIndex: " + currentSummonIndex + ", name: " + handcards.get(currentSummonIndex).getName());
+                        okayMessageBox.showMessage("Wähle jetzt Tribute aus.");
+                        selectingTributes = true;
+                    }else{
+                        summonDirectly(currentSummonIndex);
+                    }
+                    yesNoMessageBox.reset();
+                    okayMessageBox.reset();
                 }
             }
+        }else{
+            if(selectedFieldcards.size() == handcards.get(currentSummonIndex).getTribute().getNeededCards()){ //Wenn man soviele Karten wie benötigt, ausgewählt hat
+                if(handcards.get(currentSummonIndex).getTribute().getNeededElement() == Element.NO_ELEMENT){ //Wenn kein spezifisches Element benötigt wird
+                    fromFieldToGraveyard(); //Ausgewählten Karten auf den Friedhof schicken
+                    summonDirectly(currentSummonIndex);
+                }else{ //Wenn die Karte ein spezifisches Element benötigt
+//                    for(int index : selectedFieldcards) {
+//                        if(fieldcards.get(index).getElement() != handcards.get(currentSummonIndex).getTribute().getNeededElement()){
+//                            okayMessageBox.showMessage("Es wird leider ein anderes Element benötigt: " + handcards.get(currentSummonIndex).getTribute().getNeededElement());
+//                            break;
+//                        }else{
+//                            fromFieldToGraveyard(); //Ausgewählten Karten auf den Friedhof schicken
+//                            summonDirectly(currentSummonIndex);
+//                        }
+//                    }
+
+                    for(int i = 0; i < selectedFieldcards.size(); i++) {
+                        if(fieldcards.get(selectedFieldcards.get(i)).getElement() != handcards.get(currentSummonIndex).getTribute().getNeededElement()){
+                            okayMessageBox.showMessage("Es wird leider ein anderes Element benötigt: " + handcards.get(currentSummonIndex).getTribute().getNeededElement());
+                            break;
+                        }else{
+                            fromFieldToGraveyard(); //Ausgewählten Karten auf den Friedhof schicken
+                            summonDirectly(currentSummonIndex);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @author Noah O. Wantoch
+     * Schickt die Karten von dem Feld auf den Friedhof
+     */
+    public void fromFieldToGraveyard(){
+        for(int i = 0; i < selectedFieldcards.size(); i++){
+            int lastIndex = selectedFieldcards.get(selectedFieldcards.size() - 1);
+            Card card = fieldcards.get(lastIndex);
+            fieldcards.remove(lastIndex);
+            card.deselect();
+            graveyard.addCard(card);
+            selectedFieldcards.remove(selectedFieldcards.size() - 1);
         }
     }
 
@@ -204,12 +267,30 @@ public class PlayingPossibilities {
         }
 
         for(int i = 0; i < fieldcards.size(); i++){
-            //wenn man über eine Karte drüber "hovered"
-            if(touchDetector.isHoveredOverRectangle(fieldcards.get(i).getX(), fieldcards.get(i).getY(), GameSettings.cardWidth, GameSettings.cardHeight)){
+            if(touchDetector.isHoveredOverRectangle(fieldcards.get(i).getX(), fieldcards.get(i).getY(), GameSettings.cardWidth, GameSettings.cardHeight)){ //wenn man über eine Karte drüber "hovered"
                 if(fieldcards.get(i).getSize() == 1f){
                     fieldcards.get(i).reinitialize(GameSettings.cardZoom);
                 }
-            }else{
+                if(Gdx.input.justTouched()){
+                    if(fieldcards.get(i).isSelected()){ //i ist in fieldcards (als value, nicht als index)
+                        fieldcards.get(i).deselect();
+                        if(selectedFieldcards.size() > 0){
+                            int x = 0;
+                            for(int index : selectedFieldcards){
+                                if(index == i){
+                                    x = index;
+                                }
+                            }
+                            if(selectedFieldcards.size() > x){
+                                selectedFieldcards.remove(x);
+                            }
+                        }
+                    }else{
+                        fieldcards.get(i).select();
+                        selectedFieldcards.add(i);
+                    }
+                }
+            }else{ //wenn man nicht mehr über eine Karte drüber "hovered"
                 if(fieldcards.get(i).getSize() == GameSettings.cardZoom){
                     fieldcards.get(i).reinitialize(1f);
                 }
@@ -269,6 +350,8 @@ public class PlayingPossibilities {
     public void playCard(int index){
         boolean summon = false;
         Card card = handcards.get(index);
+
+        Gdx.app.debug("playCard", "index: " + index + ", name: " + card.getName());
 
         if(card.getTribute().getNeededCards() > fieldcards.size()){ //Wenn (erst) kein Tribut möglich ist, weil die Feldkarten zu klein sind
             okayMessageBox.showMessage("Du brauchst mindestens: " + card.getTribute().getNeededCards() + " Karten auf dem Spielfeld zum opfern.");

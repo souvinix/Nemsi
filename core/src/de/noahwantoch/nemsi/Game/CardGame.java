@@ -86,7 +86,7 @@ public class CardGame {
         state = true;
         this.player = player;
         this.enemy = enemy;
-        this.player.drawCard(5);
+        this.player.drawCard(10);
         //this.player.drawCard(GameSettings.handcardsStartNumber);
         this.enemy.drawCard(GameSettings.handcardsStartNumber);
     }

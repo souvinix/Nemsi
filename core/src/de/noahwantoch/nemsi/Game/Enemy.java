@@ -1,6 +1,7 @@
 package de.noahwantoch.nemsi.Game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * @author Noah O. Wantoch
@@ -45,6 +46,65 @@ public class Enemy extends PlayingPossibilities{
      */
     public void drawCard(int number) {
         super.drawCard(number, GameSettings.EnemyPositions.deckPosition);
+    }
+
+    @Override
+    public void moveCardsAnimation(Vector2 handPosition) {
+        super.moveCardsAnimation(handPosition);
+    }
+
+    @Override
+    public void updateFieldcards(float fieldcardY) {
+        super.updateFieldcards(fieldcardY);
+    }
+
+    @Override
+    public void updateCardAnimation(float delta, Vector2 deckPosition, boolean openCards) {
+        super.updateCardAnimation(delta, deckPosition, openCards);
+    }
+
+    @Override
+    public void fromFieldToGraveyard() {
+
+
+
+    }
+
+    @Override
+    public void checkForInteraction() {
+        super.checkForInteraction();
+    }
+
+    @Override
+    public void cardInteraction(int index) {
+        super.cardInteraction(index);
+    }
+
+    @Override
+    public void drawCardAnimation(Vector2 deckPosition, boolean openCards) {
+        super.drawCardAnimation(deckPosition, openCards);
+    }
+
+    @Override
+    public void drawCard(int number, Vector2 deckPosition) {
+        super.drawCard(number, deckPosition);
+    }
+
+    @Override
+    public void playCard(int index) {
+
+
+    }
+
+    @Override
+    public void summonDirectly(int handcardIndex) {
+
+
+    }
+
+    @Override
+    public void setLife(int life) {
+        super.setLife(life);
     }
 
     @Override

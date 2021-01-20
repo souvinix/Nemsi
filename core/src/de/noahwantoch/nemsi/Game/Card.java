@@ -1,6 +1,7 @@
 package de.noahwantoch.nemsi.Game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -40,6 +41,9 @@ public class Card {
     private Sprite tributeSprite; //could be null after initialization
 
     private Font descriptionFont;
+    private boolean selected;
+
+    private Color currentNameColor;
 
     public Card(String name, int damage, int life, Element element){
         this.effect = new Effect("Kein Effekt.", EffectModule.NO_EFFECT, 0);
@@ -72,6 +76,9 @@ public class Card {
         this.life = life;
         this.element = element;
 
+        this.currentNameColor = new Color(0, 0, 0, 1);
+
+        this.size = 2f;
         reinitialize(1f); //Der Name, der Schaden und das Leben der Karte können hiermit visualisiert werden
     }
 
@@ -115,34 +122,49 @@ public class Card {
         tributeFont.setPosition(x + cardSprite.getWidth() * 0.78f, y + cardSprite.getHeight() * 0.47f);
     }
 
+    public boolean isSelected(){ return selected; }
+    public void select(){
+        selected = true;
+        currentNameColor.set(1, 1, 1, 1);
+        textFont.setColor(1, 1,1,1);
+    }
+    public void deselect(){
+        selected = false;
+        textFont.setColor(0, 0,0,1);
+        currentNameColor.set(0, 0, 0, 1);
+    }
+
     /**
      * @author Noah O. Wantoch
      * @param size Die Größe der Karte
      * Die Karte wird mit einer anderen Größe neu-initialisiert
      */
     public void reinitialize(float size){
-        this.size = size;
+        if(this.size != size){
+            this.size = size;
 
-        cardSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth * size, de.noahwantoch.nemsi.Game.GameSettings.cardHeight * size);
-        elementSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.elementWidth * size, de.noahwantoch.nemsi.Game.GameSettings.elementHeight * size);
-        swordSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.swordWidth * size, de.noahwantoch.nemsi.Game.GameSettings.swordHeight * size);
-        shieldSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.shieldWidth * size, de.noahwantoch.nemsi.Game.GameSettings.shieldHeight * size);
-        cardBack.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth * size, de.noahwantoch.nemsi.Game.GameSettings.cardHeight * size);
-        tributeSprite.setSize((GameSettings.elementWidth / 3f) * size, (GameSettings.elementHeight / 3f)* size);
+            cardSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth * size, de.noahwantoch.nemsi.Game.GameSettings.cardHeight * size);
+            elementSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.elementWidth * size, de.noahwantoch.nemsi.Game.GameSettings.elementHeight * size);
+            swordSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.swordWidth * size, de.noahwantoch.nemsi.Game.GameSettings.swordHeight * size);
+            shieldSprite.setSize(de.noahwantoch.nemsi.Game.GameSettings.shieldWidth * size, de.noahwantoch.nemsi.Game.GameSettings.shieldHeight * size);
+            cardBack.setSize(de.noahwantoch.nemsi.Game.GameSettings.cardWidth * size, de.noahwantoch.nemsi.Game.GameSettings.cardHeight * size);
+            tributeSprite.setSize((GameSettings.elementWidth / 3f) * size, (GameSettings.elementHeight / 3f)* size);
 
-        textFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.cardFontSize * size), name);
-        textFont.setColor(0, 0,0,1);
-        damageFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(damage));
-        damageFont.setColor(1, 0.5f,0.5f,0.8f);
-        lifeFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(life));
-        lifeFont.setColor(0.5f, 1,0.5f,0.8f);
-        descriptionFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), (int) GameSettings.descriptionSize, effect.getDescription());
-        descriptionFont.wrapText(rowLength);
-        descriptionFont.setColor(0, 0, 0, 1);
-        tributeFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), (int) (GameSettings.descriptionSize * size), tribute.getNeededCards() + "x");
-        tributeFont.setColor(0f, 0f, 0f, 0.5f);
+            textFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.cardFontSize * size), name);
+            textFont.setColor(currentNameColor.r, currentNameColor.g, currentNameColor.b, currentNameColor.a);
 
-        setPosition(getX(), getY());
+            damageFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(damage));
+            damageFont.setColor(1, 0.5f,0.5f,0.8f);
+            lifeFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(life));
+            lifeFont.setColor(0.5f, 1,0.5f,0.8f);
+            descriptionFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), (int) GameSettings.descriptionSize, effect.getDescription());
+            descriptionFont.wrapText(rowLength);
+            descriptionFont.setColor(0, 0, 0, 1);
+            tributeFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), (int) (GameSettings.descriptionSize * size), tribute.getNeededCards() + "x");
+            tributeFont.setColor(0f, 0f, 0f, 0.5f);
+
+            setPosition(getX(), getY());
+        }
     }
 
     public Element getElement(){ return element; }
