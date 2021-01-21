@@ -30,13 +30,17 @@
   <component name="ChangeListManager">
     <list default="true" id="19850761-2329-4cff-8021-0f659a157987" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt speichern.bat" beforeDir="false" afterPath="$PROJECT_DIR$/Projekt speichern.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Card.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardSelection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Effect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/MessageBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/MessageBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/GameSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/PlayingPossibilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/PlayingPossibilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/UI/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/UI/Button.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,20 +79,21 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/android/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Projekte\Nemsi\android\assets" />
-      <recent name="D:\Projekte\Nemsi\android\assets\Fonts" />
-      <recent name="D:\Projekte\RPG\android\assets" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projekte\Nemsi\android\assets\Fonts" />
       <recent name="D:\Projekte\Nemsi" />
       <recent name="D:\Projekte\RPG\android\assets" />
       <recent name="D:\Projekte\RPG\android\assets\Fonts" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projekte\Nemsi" />
+      <recent name="D:\Projekte\Nemsi\android\assets" />
+      <recent name="D:\Projekte\Nemsi\android\assets\Fonts" />
+      <recent name="D:\Projekte\RPG\android\assets" />
     </key>
   </component>
   <component name="RunManager" selected="Application.DesktopLauncher">
@@ -234,22 +239,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="731" y="253" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610905908495" />
-    <state width="1876" height="89" key="GridCell.Tab.0.bottom" timestamp="1611180557631">
+    <state width="1876" height="89" key="GridCell.Tab.0.bottom" timestamp="1611188458091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="89" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611180557631" />
-    <state width="1876" height="89" key="GridCell.Tab.0.center" timestamp="1611180557631">
+    <state width="1876" height="89" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611188458091" />
+    <state width="1876" height="89" key="GridCell.Tab.0.center" timestamp="1611188458091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="89" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611180557631" />
-    <state width="1876" height="89" key="GridCell.Tab.0.left" timestamp="1611180557631">
+    <state width="1876" height="89" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611188458091" />
+    <state width="1876" height="89" key="GridCell.Tab.0.left" timestamp="1611188458091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="89" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611180557631" />
-    <state width="1876" height="89" key="GridCell.Tab.0.right" timestamp="1611180557631">
+    <state width="1876" height="89" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611188458091" />
+    <state width="1876" height="89" key="GridCell.Tab.0.right" timestamp="1611188458091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="89" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611180557631" />
+    <state width="1876" height="89" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611188458091" />
     <state width="1876" height="281" key="GridCell.Tab.1.bottom" timestamp="1610890428335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -167,6 +167,8 @@ public class Card {
         }
     }
 
+    public Effect getEffect(){ return effect; }
+
     public Element getElement(){ return element; }
 
     public float getWidth(){

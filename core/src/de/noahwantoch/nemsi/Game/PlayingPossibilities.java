@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
+import de.noahwantoch.nemsi.EffectModule;
 import de.noahwantoch.nemsi.TextureHandling.TextureEnum;
 import de.noahwantoch.nemsi.Utility.BatchInstance;
 import de.noahwantoch.nemsi.Utility.TouchDetector;
@@ -50,6 +51,9 @@ public class PlayingPossibilities {
 
     public MessageBox okayMessageBox;
     public MessageBox yesNoMessageBox;
+
+    public MessageBox effectYesNoMessageBox;
+    public Effect currentEffect;
 
     public boolean summonCard = false;
     public int currentSummonIndex = 0;
@@ -97,6 +101,9 @@ public class PlayingPossibilities {
 
         okayMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
         yesNoMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
+
+        effectYesNoMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
+        currentEffect = null;
 
         this.tributeHandler = new TributeHandler();
     }
@@ -177,8 +184,16 @@ public class PlayingPossibilities {
         }
 
         //Touch-Detection wird erkannt
-        if(!okayMessageBox.getState() && !yesNoMessageBox.getState()){
+        if(!okayMessageBox.getState() && !yesNoMessageBox.getState() && !effectYesNoMessageBox.getState()){
             checkForInteraction();
+        }
+
+        if(!effectYesNoMessageBox.getState()){
+            if(effectYesNoMessageBox.getResult()){
+                activateEffect(currentEffect);
+            }
+
+            effectYesNoMessageBox.reset(); //result wird zurückgesetzt, damit es nur einmal abgefragt wird
         }
 
         //Handkarten werden gemalt
@@ -188,6 +203,7 @@ public class PlayingPossibilities {
 
         okayMessageBox.draw(BatchInstance.batch, delta);
         yesNoMessageBox.draw(BatchInstance.batch, delta);
+        effectYesNoMessageBox.draw(BatchInstance.batch, delta);
 
         if(!selectingTributes){ //Wenn man gerade keine Karten für eine Tributbeschwörung auswählt
             //Eine Karte wird beschworen
@@ -209,17 +225,7 @@ public class PlayingPossibilities {
                 if(handcards.get(currentSummonIndex).getTribute().getNeededElement() == Element.NO_ELEMENT){ //Wenn kein spezifisches Element benötigt wird
                     fromFieldToGraveyard(); //Ausgewählten Karten auf den Friedhof schicken
                     summonDirectly(currentSummonIndex);
-                }else{ //Wenn die Karte ein spezifisches Element benötigt
-//                    for(int index : selectedFieldcards) {
-//                        if(fieldcards.get(index).getElement() != handcards.get(currentSummonIndex).getTribute().getNeededElement()){
-//                            okayMessageBox.showMessage("Es wird leider ein anderes Element benötigt: " + handcards.get(currentSummonIndex).getTribute().getNeededElement());
-//                            break;
-//                        }else{
-//                            fromFieldToGraveyard(); //Ausgewählten Karten auf den Friedhof schicken
-//                            summonDirectly(currentSummonIndex);
-//                        }
-//                    }
-
+                }else{
                     for(int i = 0; i < selectedFieldcards.size(); i++) {
                         if(fieldcards.get(selectedFieldcards.get(i)).getElement() != handcards.get(currentSummonIndex).getTribute().getNeededElement()){
                             okayMessageBox.showMessage("Es wird leider ein anderes Element benötigt: " + handcards.get(currentSummonIndex).getTribute().getNeededElement());
@@ -309,11 +315,9 @@ public class PlayingPossibilities {
      * @author Noah O. Wantoch
      * Die Animation des Ziehens wird hier umgesetzt (Positionen verändern sich pro render(delta))
      * @param deckPosition Die Position des Decks
-     * @param openCards Ob die Karten aufgedeckt werden sollen beim Ziehen
      */
     public void drawCardAnimation(Vector2 deckPosition, boolean openCards){
-        if(openCards) currentDrawingCards.get(currentDrawingCards.size() - 1).toOpen(); //Letzte Karte wird umgedreht
-        currentDrawingCards.get(currentDrawingCards.size() - 1).setPosition(currentDrawingCards.get(currentDrawingCards.size() - 1).getX() - drawSpeed, deckPosition.y);
+        currentDrawingCards.get(currentDrawingCards.size() - 1).setPosition(currentDrawingCards.get(currentDrawingCards.size() - 1).getX() - drawSpeed * Gdx.graphics.getDeltaTime(), deckPosition.y);
     }
 
     /**
@@ -330,13 +334,14 @@ public class PlayingPossibilities {
      * @author Noah O. Wantoch
      * Eine Karte ziehen
      * @param number Wie viele Karten gezogen werden sollen
-     * @param deckPosition Die Position des Decks
      */
-    public void drawCard(int number, Vector2 deckPosition){
+    public void drawCard(int number){
+        drawCardCounter = 0;
         for(int i = 0; i < number; i++){
             if(deck.getSize() > 0){
                 Card card = deck.pop();
-                card.setPosition(deckPosition.x, deckPosition.y);
+                card.toOpen();
+                card.setPosition(deck.getPosition().x, deck.getPosition().y);
                 currentDrawingCards.add(card); //Eine Liste, welche dafür verantwortlich ist, die Karten-Zieh-Animation der darin enthaltenen Karten zu malen
             }
         }
@@ -397,8 +402,36 @@ public class PlayingPossibilities {
             }
         }
 
+        if(fieldcards.get(fieldcards.size() - 1).getEffect().getEffectModule() != EffectModule.NO_EFFECT){ //Wenn es ein Effekt hat
+            effectYesNoMessageBox.showMessage("Willst du den Effekt aktivieren?: " + fieldcards.get(fieldcards.size() - 1).getEffect().getDescription());
+            currentEffect = fieldcards.get(fieldcards.size() - 1).getEffect();
+        }
+
         currentSummonIndex = 0;
         summonCard = false;
+    }
+
+    private void activateEffect(Effect effect){
+        if(effect != null){
+            if(effect.getEffectModule() == EffectModule.DRAW_N){ //Wenn man eine Karte ziehen soll
+                if(effect.getTarget() == Element.NO_ELEMENT){ //Wenn das Element egal ist
+                    drawCard(effect.getAmount());
+                }else{
+                    drawSpecificElement(effect.getAmount(), effect.getTarget()); //Die nächste/-n Karte/-n des gesuchten Elements wird/werden gezogen
+                }
+            }
+
+            currentEffect = null; //wird am Ende wieder auf null gesetzt
+        }
+    }
+
+    public void drawSpecificElement(int number, Element element){
+        for(int i = 0; i < number; i++){
+            if(deck.getSize() > 0){
+                int value = deck.putSpecificElementAbove(number, element); //Tut number Karten oben auf das Deck
+                drawCard(value); //So viele werden dann gezogen
+            }
+        }
     }
 
     /**

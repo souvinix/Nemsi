@@ -13,7 +13,7 @@ import de.noahwantoch.nemsi.Utility.TouchDetector;
 
 public class Button {
     private static final String TAG = Button.class.getSimpleName();
-    private float secondsToLoad = 0.15f;
+    private float secondsToLoad = 0.15f; //Damit man sehen kann, wie man den Knopf vorher runterdrückt
 
     private float x;
     private float y;
@@ -26,7 +26,7 @@ public class Button {
     private float width;
     private float height;
 
-    private String fontDataName = FontEnum.Retganon.getFontDataName();
+    private String fontDataName = FontEnum.Retganon.getFontDataName(); //Fonts / FontDataname.ttf
     private de.noahwantoch.nemsi.UI.Font textFont;
     private String text;
 

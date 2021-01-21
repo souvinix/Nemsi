@@ -44,8 +44,15 @@ public class Enemy extends PlayingPossibilities{
      * @author Noah O. Wantoch
      * @param number Wie viele Karten gezogen werden sollen
      */
+    @Override
     public void drawCard(int number) {
-        super.drawCard(number, GameSettings.EnemyPositions.deckPosition);
+        for(int i = 0; i < number; i++){
+            if(deck.getSize() > 0){
+                Card card = deck.pop();
+                card.setPosition(deck.getPosition().x, deck.getPosition().y);
+                currentDrawingCards.add(card); //Eine Liste, welche dafür verantwortlich ist, die Karten-Zieh-Animation der darin enthaltenen Karten zu malen
+            }
+        }
     }
 
     @Override
@@ -83,11 +90,6 @@ public class Enemy extends PlayingPossibilities{
     @Override
     public void drawCardAnimation(Vector2 deckPosition, boolean openCards) {
         super.drawCardAnimation(deckPosition, openCards);
-    }
-
-    @Override
-    public void drawCard(int number, Vector2 deckPosition) {
-        super.drawCard(number, deckPosition);
     }
 
     @Override

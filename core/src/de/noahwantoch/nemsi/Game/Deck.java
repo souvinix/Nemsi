@@ -72,6 +72,36 @@ public class Deck {
         }
     }
 
+    public int putSpecificElementAbove(int number, Element element){
+        ArrayList<Card> elementCards = new ArrayList<>();
+
+        int counter = 0;
+        //Hinzufügen
+        for(Card card : cards){
+            if(counter == number) break;
+            if(card.getElement() == element){
+                elementCards.add(card);
+                counter += 1;
+            }
+        }
+
+        //Entfernen
+        for(Card card : elementCards){
+            cards.remove(card);
+        }
+
+        //Neu-hinzufügen
+        for(Card card : elementCards){
+            cards.add(card);
+        }
+
+        return counter;
+    }
+
+    public Vector2 getPosition() {
+        return drawingPosition;
+    }
+
     public void printValues(){
         Gdx.app.debug(TAG, "-----DECK-----");
         Gdx.app.debug(TAG, "Size: " + cards.size());

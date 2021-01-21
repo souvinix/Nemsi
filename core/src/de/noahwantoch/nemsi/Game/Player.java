@@ -62,7 +62,7 @@ public class Player extends PlayingPossibilities{
      * @param number Wie viele Karten gezogen werden sollen
      */
     public void drawCard(int number){
-        super.drawCard(number, GameSettings.PlayerPositions.deckPosition);
+        super.drawCard(number);
     }
 
     @Override

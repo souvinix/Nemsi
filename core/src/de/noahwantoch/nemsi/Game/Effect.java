@@ -24,5 +24,9 @@ public class Effect {
         this.amount = amount;
     }
 
+    public Element getTarget(){ return target; }
+    public EffectModule getEffectModule(){ return module; }
+    public int getAmount(){ return amount; }
+
     public String getDescription(){ return description; }
 }
