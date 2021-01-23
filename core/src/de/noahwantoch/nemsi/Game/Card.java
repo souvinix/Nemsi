@@ -167,6 +167,10 @@ public class Card {
         }
     }
 
+    public void heal(int amount){
+        this.life += amount;
+    }
+
     public Effect getEffect(){ return effect; }
 
     public Element getElement(){ return element; }

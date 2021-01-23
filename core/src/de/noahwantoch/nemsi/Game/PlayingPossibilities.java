@@ -67,6 +67,11 @@ public class PlayingPossibilities {
     public ArrayList<Integer> selectedBanishedCards;
     public ArrayList<Integer> selectedEnemyCards;
 
+    public Effect currentExecutingEffect;
+
+    public boolean healing = false;
+    public boolean destroying = false;
+    public boolean damaging = false;
 
     public PlayingPossibilities(){
         deck = new de.noahwantoch.nemsi.Game.Deck();
@@ -172,6 +177,33 @@ public class PlayingPossibilities {
         deck.draw(delta, deckDrawingOffset);
         graveyard.draw(delta, graveyardDrawingOffset);
         banishedCards.draw(delta, banishedCardsDrawingOffset);
+
+        //Der aktuell auslösende Effekt
+        if(currentExecutingEffect != null){
+            if(healing){ //single healing
+                if(currentExecutingEffect.getTarget() == Element.NO_ELEMENT){ //Wenn es kein bestimmtes Element sein muss
+                    if(selectedFieldcards.size() > 0){ //Wenn Karten ausgewählt wurden
+                        fieldcards.get(selectedFieldcards.get(0)).heal(currentExecutingEffect.getAmount());
+                        fieldcards.get(selectedFieldcards.get(0)).deselect();
+                        selectedFieldcards.remove(0);
+                        healing = false;
+                    }
+                }else{ //Wenn die Zielkarte ein bestimmtes Element haben muss
+                    boolean healedCard = false;
+                    for(int index : selectedFieldcards){
+                        if(fieldcards.get(index).getElement() == currentExecutingEffect.getTarget()){
+                            healedCard = true;
+                        }
+                    }
+                    if(!healedCard) okayMessageBox.showMessage("Leider konnte keine Karte geheilt werden.");
+                    healing = false;
+                }
+            }else if(damaging){
+
+            }else if(destroying){
+
+            }
+        }
 
         //Die oberste Karten (die gezogen wird), wird gemalt
         if(currentDrawingCards.size() > 0){
@@ -411,8 +443,16 @@ public class PlayingPossibilities {
         summonCard = false;
     }
 
+
+    /**
+     * @author Noah O. Wantoch
+     * @param effect Der Effekt, der (sicher) ausgelöst wird.
+     */
     private void activateEffect(Effect effect){
         if(effect != null){
+            /**
+             * ZIEHEN
+             */
             if(effect.getEffectModule() == EffectModule.DRAW_N){ //Wenn man eine Karte ziehen soll
                 if(effect.getTarget() == Element.NO_ELEMENT){ //Wenn das Element egal ist
                     drawCard(effect.getAmount());
@@ -421,8 +461,119 @@ public class PlayingPossibilities {
                 }
             }
 
+            /**
+             * HEILEN
+             */
+            else if(effect.getEffectModule() == EffectModule.HEAL_N){ //Heilen einer anderen Karte (Regel: nur das eigene Team steht zur Auswahl)
+                currentExecutingEffect = effect;
+                healing = true;
+            }
+
+            else if(effect.getEffectModule() == EffectModule.HEAL_HERO){ //Heilen des eigenen Helden (des Spielers)
+                this.life += effect.getAmount(); //Das Element spielt keine Rolle, deswegen wird kriegt der Spieler einfach das Leben (over-heal)
+            }
+
+            else if(effect.getEffectModule() == EffectModule.HEAL_ALL_OTHER){ //Heilen von allen ANDEREN Karten (im Team) außer sich selbst
+                if(effect.getTarget() == Element.NO_ELEMENT){ //Wenn das Element egal ist
+
+                }else{ //Wenn das Element eine Rolle spielt
+
+                }
+            }
+
+            else if(effect.getEffectModule() == EffectModule.HEAL_ALL){ //Heilen von allen Karten auf dem Spielfeld (auch Gegner)
+                if(effect.getTarget() == Element.NO_ELEMENT){ //Wenn das Element egal ist
+
+                }else{ //Wenn das Element eine Rolle spielt
+
+                }
+            }
+
+            else if(effect.getEffectModule() == EffectModule.HEAL_TEAM){ //Heilen des eigenen Team (alle Spielfeldkarten)
+                if(effect.getTarget() == Element.NO_ELEMENT){ //Wenn das Element egal ist
+
+                }else{ //Wenn das Element eine Rolle spielt
+
+                }
+            }
+            /**
+             * ZERSTÖREN
+             */
+            else if(effect.getEffectModule() == EffectModule.DESTROY_N) { //Wenn man eine Karte zerstören soll
+                if (effect.getTarget() == Element.NO_ELEMENT) { //Wenn das Element egal ist
+
+                } else { //Wenn das Element eine Rolle spielt
+
+                }
+            }
+
+            else if(effect.getEffectModule() == EffectModule.DESTROY_ALL) { //Wenn man alle Karten zerstören will
+                if (effect.getTarget() == Element.NO_ELEMENT) { //Wenn das Element egal ist
+
+                } else { //Wenn das Element eine Rolle spielt
+
+                }
+            }
+
+            else if(effect.getEffectModule() == EffectModule.DESTROY_ALL_OTHER) { //Wenn man alle Karten außer sich selbst zerstören will
+                if (effect.getTarget() == Element.NO_ELEMENT) { //Wenn das Element egal ist
+
+                } else { //Wenn das Element eine Rolle spielt
+
+                }
+            }
+
+            /**
+             * SCHADEN
+             */
+            else if(effect.getEffectModule() == EffectModule.DAMAGE_N) { //Wenn man einer Karte schaden will
+                if (effect.getTarget() == Element.NO_ELEMENT) { //Wenn das Element egal ist
+
+                } else { //Wenn das Element eine Rolle spielt
+
+                }
+            }
+
+            else if(effect.getEffectModule() == EffectModule.DAMAGE_ALL) { //Wenn man allen Karten schaden will
+                if (effect.getTarget() == Element.NO_ELEMENT) { //Wenn das Element egal ist
+
+                } else { //Wenn das Element eine Rolle spielt
+
+                }
+            }
+
+            else if(effect.getEffectModule() == EffectModule.DAMAGE_HERO) { //Wenn man dem gegnerischen Helden Schaden zufügen will
+                if (effect.getTarget() == Element.NO_ELEMENT) { //Wenn das Element egal ist
+
+                } else { //Wenn das Element eine Rolle spielt
+
+                }
+            }
+
+            /**
+             * SUCHEN
+             */
+            else if(effect.getEffectModule() == EffectModule.DRAW_SPECIFIC_CARD) { //Wenn man eine Karte sucht (von dem Deck der Hand hinzufügen)
+                if (effect.getTarget() == Element.NO_ELEMENT) { //Wenn das Element egal ist
+
+                } else { //Wenn das Element eine Rolle spielt
+
+                }
+            }
+
             currentEffect = null; //wird am Ende wieder auf null gesetzt
         }
+
+    }
+
+    /**
+     * @author Noah O. Wantoch
+     * @param fieldcardIndex Der Index der Feldkarte
+     * @param amount Die Menge der Heilung
+     * Ermöglicht das Heilen einer Feldkarte (over-heal; Über-Heilung --> über dem maximalen Leben hinaus)
+     */
+    public void healCard(int fieldcardIndex, int amount){
+        fieldcards.get(fieldcardIndex).heal(amount);
     }
 
     public void drawSpecificElement(int number, Element element){

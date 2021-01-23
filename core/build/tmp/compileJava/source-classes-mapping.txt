@@ -4,8 +4,8 @@ de/noahwantoch/nemsi/Game/Effect.java
  de.noahwantoch.nemsi.Game.Effect
 de/noahwantoch/nemsi/ScreenHandling/differentScreens/GameScreen.java
  de.noahwantoch.nemsi.ScreenHandling.differentScreens.GameScreen
-de/noahwantoch/nemsi/Game/TributeHandler.java
- de.noahwantoch.nemsi.Game.TributeHandler
+de/noahwantoch/nemsi/ScreenHandling/differentScreens/QuitScreen.java
+ de.noahwantoch.nemsi.ScreenHandling.differentScreens.QuitScreen
 de/noahwantoch/nemsi/ScreenHandling/ScreenEnum.java
  de.noahwantoch.nemsi.ScreenHandling.ScreenEnum
  de.noahwantoch.nemsi.ScreenHandling.ScreenEnum$1
@@ -21,8 +21,8 @@ de/noahwantoch/nemsi/Game/GameSettings.java
  de.noahwantoch.nemsi.Game.GameSettings
  de.noahwantoch.nemsi.Game.GameSettings$EnemyPositions
  de.noahwantoch.nemsi.Game.GameSettings$PlayerPositions
-de/noahwantoch/nemsi/Game/Tribute.java
- de.noahwantoch.nemsi.Game.Tribute
+de/noahwantoch/nemsi/TextureHandling/AnimationHandler.java
+ de.noahwantoch.nemsi.TextureHandling.AnimationHandler
 de/noahwantoch/nemsi/ScreenHandling/differentScreens/MenuScreen.java
  de.noahwantoch.nemsi.ScreenHandling.differentScreens.MenuScreen
 de/noahwantoch/nemsi/ScreenHandling/AbstractScreen.java
@@ -80,23 +80,23 @@ de/noahwantoch/nemsi/MainGameClass.java
  de.noahwantoch.nemsi.MainGameClass
 de/noahwantoch/nemsi/Utility/Type.java
  de.noahwantoch.nemsi.Utility.Type
-de/noahwantoch/nemsi/ScreenHandling/differentScreens/QuitScreen.java
- de.noahwantoch.nemsi.ScreenHandling.differentScreens.QuitScreen
-de/noahwantoch/nemsi/TextureHandling/AnimationHandler.java
- de.noahwantoch.nemsi.TextureHandling.AnimationHandler
-de/noahwantoch/nemsi/Game/Card.java
- de.noahwantoch.nemsi.Game.Card
-de/noahwantoch/nemsi/Game/All_Cards.java
- de.noahwantoch.nemsi.Game.All_Cards
-de/noahwantoch/nemsi/Game/Deck.java
- de.noahwantoch.nemsi.Game.Deck
 de/noahwantoch/nemsi/Game/PlayingPossibilities.java
  de.noahwantoch.nemsi.Game.PlayingPossibilities
 de/noahwantoch/nemsi/Game/Player.java
  de.noahwantoch.nemsi.Game.Player
+de/noahwantoch/nemsi/Game/TributeHandler.java
+ de.noahwantoch.nemsi.Game.TributeHandler
+de/noahwantoch/nemsi/Game/Card.java
+ de.noahwantoch.nemsi.Game.Card
 de/noahwantoch/nemsi/Game/CardGame.java
  de.noahwantoch.nemsi.Game.CardGame
+de/noahwantoch/nemsi/Game/All_Cards.java
+ de.noahwantoch.nemsi.Game.All_Cards
 de/noahwantoch/nemsi/Game/Enemy.java
  de.noahwantoch.nemsi.Game.Enemy
+de/noahwantoch/nemsi/Game/Tribute.java
+ de.noahwantoch.nemsi.Game.Tribute
+de/noahwantoch/nemsi/Game/Deck.java
+ de.noahwantoch.nemsi.Game.Deck
 de/noahwantoch/nemsi/Game/Game.java
  de.noahwantoch.nemsi.Game.Game
