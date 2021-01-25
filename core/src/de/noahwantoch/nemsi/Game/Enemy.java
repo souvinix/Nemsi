@@ -31,6 +31,26 @@ public class Enemy extends PlayingPossibilities{
         super.drawSpeed = -GameSettings.drawSpeed;
         super.heightOffset = Gdx.graphics.getHeight() * 0.9f - GameSettings.heightOffset;
         super.hoveringOffset = -GameSettings.heightOffset;
+
+        updateLife();
+    }
+
+    @Override
+    public void updateLife() {
+        super.updateLife();
+        lifeFont.setPosition(GameSettings.EnemyPositions.lifePosition.x, GameSettings.EnemyPositions.lifePosition.y);
+    }
+
+    @Override
+    public void getDamage(int value) {
+        super.getDamage(value);
+        lifeFont.setPosition(GameSettings.EnemyPositions.lifePosition.x, GameSettings.EnemyPositions.lifePosition.y);
+    }
+
+    @Override
+    public void heal(int value) {
+        super.heal(value);
+        lifeFont.setPosition(GameSettings.EnemyPositions.lifePosition.x, GameSettings.EnemyPositions.lifePosition.y);
     }
 
     @Override

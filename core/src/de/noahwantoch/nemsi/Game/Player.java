@@ -32,6 +32,26 @@ public class Player extends PlayingPossibilities{
         super.drawSpeed = GameSettings.drawSpeed;
         super.heightOffset = GameSettings.heightOffset;
         super.hoveringOffset = heightOffset;
+
+        updateLife();
+    }
+
+    @Override
+    public void updateLife() {
+        super.updateLife();
+        lifeFont.setPosition(GameSettings.PlayerPositions.lifePosition.x, GameSettings.PlayerPositions.lifePosition.y);
+    }
+
+    @Override
+    public void getDamage(int value) {
+        super.getDamage(value);
+        lifeFont.setPosition(GameSettings.PlayerPositions.lifePosition.x, GameSettings.PlayerPositions.lifePosition.y);
+    }
+
+    @Override
+    public void heal(int value) {
+        super.heal(value);
+        lifeFont.setPosition(GameSettings.PlayerPositions.lifePosition.x, GameSettings.PlayerPositions.lifePosition.y);
     }
 
     @Override

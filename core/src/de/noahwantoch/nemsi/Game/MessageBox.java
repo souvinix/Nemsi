@@ -27,8 +27,7 @@ public class MessageBox {
 
     private int wrap = 20;
 
-    public MessageBox(String message, int size, MessageBoxType type){
-        this.message = message;
+    public MessageBox(int size, MessageBoxType type){
         this.sprite = new Sprite(new Texture(TextureEnum.MESSAGE_BOX.getPath()));
         this.type = type;
         sprite.setSize(sprite.getWidth() * size, sprite.getHeight() * size);
@@ -83,11 +82,6 @@ public class MessageBox {
     public boolean getState(){ return state; }
 
     public boolean getResult(){ return result; }
-
-    public boolean showMessageBox(){
-        result = false;
-        return state;
-    }
 
     public void showMessage(String message){
         result = false;

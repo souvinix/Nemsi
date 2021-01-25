@@ -1,6 +1,7 @@
 package de.noahwantoch.nemsi.Game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -9,7 +10,9 @@ import java.util.ArrayList;
 
 import de.noahwantoch.nemsi.EffectModule;
 import de.noahwantoch.nemsi.TextureHandling.TextureEnum;
+import de.noahwantoch.nemsi.UI.Font;
 import de.noahwantoch.nemsi.Utility.BatchInstance;
+import de.noahwantoch.nemsi.Utility.FontEnum;
 import de.noahwantoch.nemsi.Utility.TouchDetector;
 
 /**
@@ -21,6 +24,8 @@ import de.noahwantoch.nemsi.Utility.TouchDetector;
 public class PlayingPossibilities {
 
     public int life;
+    public Font lifeFont;
+    public Vector2 lifePosition;
 
     public de.noahwantoch.nemsi.Game.Deck deck;
     public de.noahwantoch.nemsi.Game.Deck graveyard;
@@ -104,13 +109,14 @@ public class PlayingPossibilities {
 
         touchDetector = new TouchDetector();
 
-        okayMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
-        yesNoMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
+        okayMessageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
+        yesNoMessageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
 
-        effectYesNoMessageBox = new MessageBox("", GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
+        effectYesNoMessageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
         currentEffect = null;
 
         this.tributeHandler = new TributeHandler();
+        lifePosition = new Vector2();
     }
 
     /**
@@ -125,6 +131,16 @@ public class PlayingPossibilities {
             handcards.get(i).setPosition(handPosition.x - (GameSettings.cardWidth / 2f) * handcards.size() + i * (GameSettings.cardWidth + GameSettings.handcardOffset) - GameSettings.handcardOffset,
                     handPosition.y);
         }
+    }
+
+    public void heal(int value){
+        life += value;
+        updateLife();
+    }
+
+    public void getDamage(int value){
+        life -= value;
+        updateLife();
     }
 
     /**
@@ -164,6 +180,18 @@ public class PlayingPossibilities {
      */
     public void checkDrawingCondition(){}
 
+
+    /**
+     * @author Noah O. Wantoch
+     * Entfernt die ausgewählten Karten
+     */
+    public void clearSelection(){
+        for(int index : selectedFieldcards){
+            fieldcards.get(index).deselect();
+        }
+        selectedFieldcards.clear();
+    }
+
     /**
      * @author Noah. O. Wantoch
      * Das Game-Object (Player, Enemy) wird gemalt
@@ -184,20 +212,44 @@ public class PlayingPossibilities {
                 if(currentExecutingEffect.getTarget() == Element.NO_ELEMENT){ //Wenn es kein bestimmtes Element sein muss
                     if(selectedFieldcards.size() > 0){ //Wenn Karten ausgewählt wurden
                         fieldcards.get(selectedFieldcards.get(0)).heal(currentExecutingEffect.getAmount());
-                        fieldcards.get(selectedFieldcards.get(0)).deselect();
-                        selectedFieldcards.remove(0);
+                        fieldcards.get(selectedFieldcards.get(0)).updateValues();
+                        clearSelection();
                         healing = false;
+                        currentExecutingEffect = null;
                     }
                 }else{ //Wenn die Zielkarte ein bestimmtes Element haben muss
                     boolean healedCard = false;
-                    for(int index : selectedFieldcards){
-                        if(fieldcards.get(index).getElement() == currentExecutingEffect.getTarget()){
-                            healedCard = true;
+                    boolean healingPossible = false;
+
+                    for(Card card : fieldcards){ //Überprüfen, ob überhaupt eine Karte geheilt werden kann
+                        if(card.getElement() == currentExecutingEffect.getTarget()){
+                            healingPossible = true;
                         }
                     }
-                    if(!healedCard) okayMessageBox.showMessage("Leider konnte keine Karte geheilt werden.");
-                    healing = false;
+
+                    if(healingPossible){
+                        for(int index : selectedFieldcards){ //Die ausgewählten Karten heilen (eine).
+                            if(fieldcards.get(index).getElement() == currentExecutingEffect.getTarget()){ //Wenn man beim Beschwören schon eine Karte ausgewählt hat
+                                fieldcards.get(index).heal(currentExecutingEffect.getAmount());
+                                fieldcards.get(index).updateValues(); //Schnelles Updaten der Lebenszahl
+                                healedCard = true;
+                                break; //Keine weiteren Karten heilen
+                            }
+                        }
+                    }
+
+                    if(!healingPossible){
+                        okayMessageBox.showMessage("Leider konnte keine Karte geheilt werden.");
+                        healing = false;
+                        currentExecutingEffect = null;
+                    }
+
+                    if(healedCard){
+                        healing = false;
+                        currentExecutingEffect = null;
+                    }
                 }
+
             }else if(damaging){
 
             }else if(destroying){
@@ -221,7 +273,7 @@ public class PlayingPossibilities {
         }
 
         if(!effectYesNoMessageBox.getState()){
-            if(effectYesNoMessageBox.getResult()){
+            if(effectYesNoMessageBox.getResult()){ //Wenn "Ja" gedrückt wurde, nachdem etwas gedrückt wurde
                 activateEffect(currentEffect);
             }
 
@@ -241,8 +293,7 @@ public class PlayingPossibilities {
             //Eine Karte wird beschworen
             if(!yesNoMessageBox.getState() && !okayMessageBox.getState()){
                 if(yesNoMessageBox.getResult()){ // Wenn "Ja" gedrückt wurde
-                    if(handcards.get(currentSummonIndex).getTribute().getNeededCards() > 0){ //Wenn ein oder mehrere tribute erforderlich sind
-                        Gdx.app.debug("BUG", "currentSummonIndex: " + currentSummonIndex + ", name: " + handcards.get(currentSummonIndex).getName());
+                    if(handcards.get(currentSummonIndex).getTribute().getNeededCards() > 0){ //Wenn ein oder mehrere Tribute erforderlich sind
                         okayMessageBox.showMessage("Wähle jetzt Tribute aus.");
                         selectingTributes = true;
                     }else{
@@ -265,11 +316,14 @@ public class PlayingPossibilities {
                         }else{
                             fromFieldToGraveyard(); //Ausgewählten Karten auf den Friedhof schicken
                             summonDirectly(currentSummonIndex);
+                            selectingTributes = false;
                         }
                     }
                 }
             }
         }
+
+        lifeFont.draw(BatchInstance.batch); //Die Visualisierung der Lebenszahl
     }
 
     /**
@@ -441,6 +495,7 @@ public class PlayingPossibilities {
 
         currentSummonIndex = 0;
         summonCard = false;
+        currentExecutingEffect = null; //Wenn man eine Karte beschwört, aber gerade eigentlich einen Effekt aktiviert, darf der Effekt nach der Beschwörung nicht mehr aktiviert werden
     }
 
 
@@ -470,15 +525,22 @@ public class PlayingPossibilities {
             }
 
             else if(effect.getEffectModule() == EffectModule.HEAL_HERO){ //Heilen des eigenen Helden (des Spielers)
-                this.life += effect.getAmount(); //Das Element spielt keine Rolle, deswegen wird kriegt der Spieler einfach das Leben (over-heal)
+                heal(effect.getAmount()); //Das Element spielt keine Rolle, deswegen wird kriegt der Spieler einfach das Leben (over-heal)
             }
 
-            else if(effect.getEffectModule() == EffectModule.HEAL_ALL_OTHER){ //Heilen von allen ANDEREN Karten (im Team) außer sich selbst
-                if(effect.getTarget() == Element.NO_ELEMENT){ //Wenn das Element egal ist
-
-                }else{ //Wenn das Element eine Rolle spielt
-
+            else if(effect.getEffectModule() == EffectModule.HEAL_TEAM){ //Heilen von allen ANDEREN Karten (im Team) außer sich selbst
+                if(fieldcards.size() > 1){ //Wenn es mehr Karten als die bereits beschworene gibt
+                    for(int i = 0; i < fieldcards.size() - 1; i++){ //Es wird über allen außer der letzten Karte iteriert
+                        if(effect.getTarget() == Element.NO_ELEMENT){ //Wenn das Element der anderen Karten egal ist
+                            fieldcards.get(i).heal(effect.getAmount());
+                        }else{
+                            if(effect.getTarget() == fieldcards.get(i).getElement()){ //Wenn das Element nicht egal ist
+                                fieldcards.get(i).heal(effect.getAmount());
+                            }
+                        }
+                    }
                 }
+
             }
 
             else if(effect.getEffectModule() == EffectModule.HEAL_ALL){ //Heilen von allen Karten auf dem Spielfeld (auch Gegner)
@@ -489,7 +551,7 @@ public class PlayingPossibilities {
                 }
             }
 
-            else if(effect.getEffectModule() == EffectModule.HEAL_TEAM){ //Heilen des eigenen Team (alle Spielfeldkarten)
+            else if(effect.getEffectModule() == EffectModule.HEAL_ALL_OTHER){ //Heilen des eigenen Team (alle Spielfeldkarten)
                 if(effect.getTarget() == Element.NO_ELEMENT){ //Wenn das Element egal ist
 
                 }else{ //Wenn das Element eine Rolle spielt
@@ -592,5 +654,11 @@ public class PlayingPossibilities {
      */
     public void setLife(int life){
         this.life = life;
+        updateLife();
+    }
+
+    public void updateLife(){
+        lifeFont = new Font(FontEnum.Retganon.getFontDataName(), GameSettings.lifeFontSize, Integer.toString(life));
+        lifeFont.setColor(0.6f, 0.6f, 0.6f, 0.7f);
     }
 }

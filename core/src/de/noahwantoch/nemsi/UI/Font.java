@@ -38,6 +38,7 @@ public class Font {
     public Font(String fontDataName, int size, String text){
         this.size = size;
         this.text = text;
+        if(text == "" || text == null) this.text = " ";
 
         position = new Vector3();
 

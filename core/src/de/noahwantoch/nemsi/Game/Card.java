@@ -44,6 +44,7 @@ public class Card {
     private boolean selected;
 
     private Color currentNameColor;
+    private Color currentLifeColor;
 
     public Card(String name, int damage, int life, Element element){
         this.effect = new Effect("Kein Effekt.", EffectModule.NO_EFFECT, 0);
@@ -76,7 +77,8 @@ public class Card {
         this.life = life;
         this.element = element;
 
-        this.currentNameColor = new Color(0, 0, 0, 1);
+        this.currentNameColor = GameSettings.color_cardName.cpy();
+        this.currentLifeColor = GameSettings.color_greenNormal.cpy();
 
         this.size = 2f;
         reinitialize(1f); //Der Name, der Schaden und das Leben der Karte können hiermit visualisiert werden
@@ -123,15 +125,29 @@ public class Card {
     }
 
     public boolean isSelected(){ return selected; }
+
     public void select(){
         selected = true;
-        currentNameColor.set(1, 1, 1, 1);
-        textFont.setColor(1, 1,1,1);
+        currentNameColor.set(GameSettings.color_cardNameSelected);
+        textFont.setColor(GameSettings.color_cardNameSelected.r, GameSettings.color_cardNameSelected.g, GameSettings.color_cardNameSelected.b, GameSettings.color_cardNameSelected.a); //rgba
     }
+
     public void deselect(){
         selected = false;
-        textFont.setColor(0, 0,0,1);
-        currentNameColor.set(0, 0, 0, 1);
+        currentNameColor.set(GameSettings.color_cardName);
+        textFont.setColor(GameSettings.color_cardName.r, GameSettings.color_cardName.g, GameSettings.color_cardName.b, GameSettings.color_cardName.a); //rgba
+    }
+
+
+    /**
+     * @author Noah O. Wantoch
+     * Aktualisiert die Visualisierung der Zahlen auf der Karte (effizienter als bei reinitialize())
+     */
+    public void updateValues(){
+        damageFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(damage));
+        damageFont.setColor(GameSettings.color_atkNormal.r, GameSettings.color_atkNormal.g, GameSettings.color_atkNormal.b, GameSettings.color_atkNormal.a); //rgba
+        lifeFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(life));
+        lifeFont.setColor(currentLifeColor.r, currentLifeColor.g, currentLifeColor.b, currentLifeColor.a);
     }
 
     /**
@@ -154,14 +170,14 @@ public class Card {
             textFont.setColor(currentNameColor.r, currentNameColor.g, currentNameColor.b, currentNameColor.a);
 
             damageFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(damage));
-            damageFont.setColor(1, 0.5f,0.5f,0.8f);
+            damageFont.setColor(GameSettings.color_atkNormal.r, GameSettings.color_atkNormal.g, GameSettings.color_atkNormal.b, GameSettings.color_atkNormal.a);
             lifeFont = new Font(FontEnum.getMainFontDataName(), (int) (de.noahwantoch.nemsi.Game.GameSettings.cardWidth * Gdx.graphics.getDensity() * de.noahwantoch.nemsi.Game.GameSettings.cardSize * GameSettings.atkAndDefFontSIze * size), Integer.toString(life));
-            lifeFont.setColor(0.5f, 1,0.5f,0.8f);
+            lifeFont.setColor(currentLifeColor.r, currentLifeColor.g, currentLifeColor.b, currentLifeColor.a);
             descriptionFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), (int) GameSettings.descriptionSize, effect.getDescription());
             descriptionFont.wrapText(rowLength);
-            descriptionFont.setColor(0, 0, 0, 1);
+            descriptionFont.setColor(GameSettings.color_cardDescription.r, GameSettings.color_cardDescription.g, GameSettings.color_cardDescription.b, GameSettings.color_cardDescription.a); //rgba
             tributeFont = new Font(FontEnum.Adamina_Regular.getFontDataName(), (int) (GameSettings.descriptionSize * size), tribute.getNeededCards() + "x");
-            tributeFont.setColor(0f, 0f, 0f, 0.5f);
+            tributeFont.setColor(GameSettings.color_tributeFontColor.r, GameSettings.color_tributeFontColor.g, GameSettings.color_tributeFontColor.b, GameSettings.color_tributeFontColor.a); //rgba
 
             setPosition(getX(), getY());
         }
@@ -169,6 +185,7 @@ public class Card {
 
     public void heal(int amount){
         this.life += amount;
+        currentLifeColor.set(GameSettings.color_greenHealed.cpy());
     }
 
     public Effect getEffect(){ return effect; }

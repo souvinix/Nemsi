@@ -1,6 +1,7 @@
 package de.noahwantoch.nemsi.Game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -19,6 +20,7 @@ public interface GameSettings {
     int maxHealth = 10000; //Maximales Leben eines PlayingPossibilities-Objekt
     int messageBoxSize = 5; //Die Größe der Nachrichtenbox
     int cardsPerTurn = 2; //Maximale Beschwörungen pro Runde
+    int lifeFontSize = 60; //Die Visualisierung des Lebens der PlayingPossibilities-Objects (Spieler und Enemy)
 
     float cardSize = 2.5f; //Kartengröße
     float symbolSize = 3f; //Symbol-Größe auf den Karten
@@ -43,11 +45,23 @@ public interface GameSettings {
     float cardZoom = 1.1f; //Wenn man über die Feldkarten drüber "hovered" wird reingezommt
     float descriptionSize = 10f; //Größe der Beschreibung auf der Karte
 
+
+    //Farben --> mit Color.cpy() initialisieren, ansonsten wird der gleiche Wert referenziert
+    Color color_greenNormal = new Color(0.7f, 1,0.7f,0.7f);
+    Color color_greenDamaged = new Color();
+    Color color_greenHealed = new Color(0f, 1f,0f,1f);
+    Color color_atkNormal = new Color(1, 0.5f,0.5f,0.8f);
+    Color color_cardName = new Color(0, 0, 0, 1);
+    Color color_cardDescription = new Color(0, 0, 0, 1);
+    Color color_cardNameSelected = new Color(1f, 1f, 1f, 1f);
+    Color color_tributeFontColor = new Color(0f, 0f, 0f, 0.5f);
+
     interface PlayerPositions{
         Vector2 deckPosition = new Vector2(Gdx.graphics.getWidth() - cardWidth - widthOffset, heightOffset); //Die Position des Decks
         Vector2 graveyardPosition = new Vector2(Gdx.graphics.getWidth() - cardWidth - widthOffset, heightOffset * 2f + cardHeight); //Die Position des Friedhofs
         Vector2 banishedCardsPosition = new Vector2(widthOffset, heightOffset); //Die Position des Stapels der verbannten Karten
         Vector2 handPosition = new Vector2(Gdx.graphics.getWidth() / 2f, heightOffset); //Die Position der Mitte der Handkarten
+        Vector2 lifePosition = new Vector2(Gdx.graphics.getWidth() / 5f, heightOffset * 1.5f);
         float fieldcardY = Gdx.graphics.getHeight() / 2f - cardHeight - fieldcardHeightOffset; //Die Höhe der Feldkarten
     }
 
@@ -56,6 +70,7 @@ public interface GameSettings {
         Vector2 graveyardPosition = new Vector2(widthOffset, Gdx.graphics.getHeight() - (cardHeight * 2f) - (heightOffset * 2f)); //Die Position des Friedhofs
         Vector2 banishedCardsPosition = new Vector2(Gdx.graphics.getWidth() - widthOffset - cardWidth, Gdx.graphics.getHeight() - cardHeight - heightOffset); //Die Position des Stapels der verbannten Karten
         Vector2 handPosition = new Vector2(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() - cardHeight - heightOffset); //Die Position der Mitte der Handkarten
+        Vector2 lifePosition = new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 5f, Gdx.graphics.getHeight() - heightOffset);
         float fieldcardY = Gdx.graphics.getHeight() / 2f + fieldcardHeightOffset;; //Die Höhe der Feldkarten
     }
 }

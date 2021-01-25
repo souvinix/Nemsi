@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+
+import de.noahwantoch.nemsi.EffectModule;
 import de.noahwantoch.nemsi.TextureHandling.TextureEnum;
 import de.noahwantoch.nemsi.Utility.BatchInstance;
 
@@ -36,8 +38,8 @@ public class CardGame {
         //Die Textur des "Spielbretts"
         board = new Sprite(new Texture(TextureEnum.BOARD.getPath()));
         board.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        messageBox = new MessageBox("Ein Kartenspiel wurde initialisiert. :)", GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
-        messageBox.showMessage();
+        messageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
+        messageBox.showMessage("Ein Kartenspiel wurde initialisiert. :)");
     }
 
     /**
@@ -51,9 +53,8 @@ public class CardGame {
         player.draw(delta);
         enemy.draw(delta);
 
-        if(messageBox.showMessageBox()){
-            messageBox.draw(BatchInstance.batch, delta);
-        }
+        messageBox.draw(BatchInstance.batch, delta);
+
         BatchInstance.batch.end();
     }
 
@@ -84,8 +85,20 @@ public class CardGame {
      */
     public void startGame(Player player, Enemy enemy){
         state = true;
-        this.player = player;
+
+        enemy.setLife(3000);
         this.enemy = enemy;
+
+        //FOR TESTING
+        Deck deck = new Deck();
+        deck.addCard(new Card("TEST_KARTE", 30, 30, Element.ANTIMATTER, new Effect("Heile eine Animaterie-Karte", EffectModule.HEAL_N, 10, Element.ANTIMATTER)),
+                    new Card("TEST_KARTE", 30, 30, Element.WIND, new Effect("Heile eine Wind-Karte", EffectModule.HEAL_N, 10, Element.WIND)),
+                    new Card("Heilerin", 20, 3000, Element.NATURE, new Effect("Heile dich selbst um 240.", EffectModule.HEAL_HERO, 240), new Tribute(Element.ANTIMATTER, 1)),
+                    new Card("BESCHTE HEILERIN", 1, 1, Element.ICE, new Effect("Heile dein Team um 400", EffectModule.HEAL_TEAM, 400, Element.WIND)) );
+
+        player.setDeck(deck);
+        player.setLife(6000);
+        this.player = player;
         this.player.drawCard(GameSettings.handcardsStartNumber);
         this.enemy.drawCard(GameSettings.handcardsStartNumber);
     }
