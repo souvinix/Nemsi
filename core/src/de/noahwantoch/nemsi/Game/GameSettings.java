@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 import de.noahwantoch.nemsi.TextureHandling.TextureEnum;
+import de.noahwantoch.nemsi.UI.Button;
 
 public interface GameSettings {
     //Werden für die Höhen und Breiten der Texturen genutzt
@@ -13,6 +14,7 @@ public interface GameSettings {
     Texture exampleElement = new Texture(de.noahwantoch.nemsi.TextureHandling.TextureEnum.FIRE_SYMBOL.getPath());
     Texture exampleSword = new Texture(de.noahwantoch.nemsi.TextureHandling.TextureEnum.SWORD_SYMBOL.getPath());
     Texture exampleShield = new Texture(TextureEnum.SHIELD_SYMBOL.getPath());
+    Button exampleEndTurnButton = new Button(0, 0, 4f, "");
 
     int playerStartHealth = 0; //Startzahl des Lebens von dem Spieler nach einer Initialisierung eines Kartenspiels
     int maxCardsPerDeck = 40; //Maximale Kartenanzahl pro Deck
@@ -20,7 +22,9 @@ public interface GameSettings {
     int maxHealth = 10000; //Maximales Leben eines PlayingPossibilities-Objekt
     int messageBoxSize = 5; //Die Größe der Nachrichtenbox
     int cardsPerTurn = 2; //Maximale Beschwörungen pro Runde
-    int lifeFontSize = 60; //Die Visualisierung des Lebens der PlayingPossibilities-Objects (Spieler und Enemy)
+    int lifeFontSize = 70; //Die Visualisierung des Lebens der PlayingPossibilities-Objects (Spieler und Enemy)
+    int endTurnButton_size = 4; //Die Größe des Button, wo man seinen Zug beenden kann
+    int ai_secondsPerAction = 2; //Solange braucht die KI, um die nächste Karte zu spielen (Sekunden)
 
     float cardSize = 2.5f; //Kartengröße
     float symbolSize = 3f; //Symbol-Größe auf den Karten
@@ -45,6 +49,8 @@ public interface GameSettings {
     float cardZoom = 1.1f; //Wenn man über die Feldkarten drüber "hovered" wird reingezommt
     float descriptionSize = 10f; //Größe der Beschreibung auf der Karte
 
+    float endTurnButton_offset = 65f * Gdx.graphics.getDensity(); //Der Abstand des "Zug-Beenden"-Buttons zum rechten Rand
+    float endTurnButton_width = exampleEndTurnButton.getWidth(); //Die Breite des "Zug-Beenden"-Buttons
 
     //Farben --> mit Color.cpy() initialisieren, ansonsten wird der gleiche Wert referenziert
     Color color_greenNormal = new Color(0.7f, 1,0.7f,0.7f);
@@ -55,13 +61,16 @@ public interface GameSettings {
     Color color_cardDescription = new Color(0, 0, 0, 1);
     Color color_cardNameSelected = new Color(1f, 1f, 1f, 1f);
     Color color_tributeFontColor = new Color(0f, 0f, 0f, 0.5f);
+    Color color_lifeFontColor = new Color(0.85f, 0.5f, 0.5f, 0.7f);
+
+    Vector2 endTurnButtonPosition = new Vector2(Gdx.graphics.getWidth() - endTurnButton_offset - endTurnButton_width / 2f, Gdx.graphics.getHeight() * 0.62f);
 
     interface PlayerPositions{
         Vector2 deckPosition = new Vector2(Gdx.graphics.getWidth() - cardWidth - widthOffset, heightOffset); //Die Position des Decks
         Vector2 graveyardPosition = new Vector2(Gdx.graphics.getWidth() - cardWidth - widthOffset, heightOffset * 2f + cardHeight); //Die Position des Friedhofs
         Vector2 banishedCardsPosition = new Vector2(widthOffset, heightOffset); //Die Position des Stapels der verbannten Karten
         Vector2 handPosition = new Vector2(Gdx.graphics.getWidth() / 2f, heightOffset); //Die Position der Mitte der Handkarten
-        Vector2 lifePosition = new Vector2(Gdx.graphics.getWidth() / 5f, heightOffset * 1.5f);
+        Vector2 lifePosition = new Vector2(Gdx.graphics.getWidth() / 5f, heightOffset * 1.75f); //Die Position des "Zug-Beenden"-Buttons
         float fieldcardY = Gdx.graphics.getHeight() / 2f - cardHeight - fieldcardHeightOffset; //Die Höhe der Feldkarten
     }
 
@@ -70,7 +79,7 @@ public interface GameSettings {
         Vector2 graveyardPosition = new Vector2(widthOffset, Gdx.graphics.getHeight() - (cardHeight * 2f) - (heightOffset * 2f)); //Die Position des Friedhofs
         Vector2 banishedCardsPosition = new Vector2(Gdx.graphics.getWidth() - widthOffset - cardWidth, Gdx.graphics.getHeight() - cardHeight - heightOffset); //Die Position des Stapels der verbannten Karten
         Vector2 handPosition = new Vector2(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() - cardHeight - heightOffset); //Die Position der Mitte der Handkarten
-        Vector2 lifePosition = new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 5f, Gdx.graphics.getHeight() - heightOffset);
+        Vector2 lifePosition = new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 5f, Gdx.graphics.getHeight() - heightOffset); //Die Position des "Zug-Beenden"-Buttons
         float fieldcardY = Gdx.graphics.getHeight() / 2f + fieldcardHeightOffset;; //Die Höhe der Feldkarten
     }
 }

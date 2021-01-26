@@ -46,6 +46,8 @@ public class Card {
     private Color currentNameColor;
     private Color currentLifeColor;
 
+    private boolean isDestroyed = false;
+
     public Card(String name, int damage, int life, Element element){
         this.effect = new Effect("Kein Effekt.", EffectModule.NO_EFFECT, 0);
         this.tribute = new Tribute(Element.NO_ELEMENT, 0);
@@ -213,5 +215,15 @@ public class Card {
     public float getY(){
         return cardSprite.getY();
     }
-    
+
+    public int getDamage(){ return damage; }
+    public int getLife(){ return life; }
+
+    public void destroy(){
+        isDestroyed = true;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import de.noahwantoch.nemsi.EffectModule;
 import de.noahwantoch.nemsi.TextureHandling.TextureEnum;
+import de.noahwantoch.nemsi.UI.Button;
 import de.noahwantoch.nemsi.Utility.BatchInstance;
 
 /**
@@ -23,23 +24,21 @@ public class CardGame {
     private de.noahwantoch.nemsi.Game.Enemy enemy;
 
     private boolean state;
-    private boolean playerTurn;
 
     private final Sprite board;
 
     private MessageBox messageBox;
 
+    private Button endTurnButton;
+
     public CardGame(){
-        //Die Chance anzufangen
-        float turnChance = (int) (Math.random() * 100f);
-
-        if(turnChance > 50) playerTurn = true; //else playerTurn = false
-
         //Die Textur des "Spielbretts"
         board = new Sprite(new Texture(TextureEnum.BOARD.getPath()));
         board.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         messageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
-        messageBox.showMessage("Ein Kartenspiel wurde initialisiert. :)");
+
+        endTurnButton = new Button(GameSettings.endTurnButtonPosition.x, GameSettings.endTurnButtonPosition.y, 5f, "Zug beenden");
+        endTurnButton.setFunction(false);
     }
 
     /**
@@ -50,12 +49,32 @@ public class CardGame {
     public void draw(float delta){
         de.noahwantoch.nemsi.Utility.BatchInstance.batch.begin();
         board.draw(de.noahwantoch.nemsi.Utility.BatchInstance.batch);
-        player.draw(delta);
+
         enemy.draw(delta);
+        player.draw(delta);
 
         messageBox.draw(BatchInstance.batch, delta);
 
+        endTurnButton.draw(delta);
         BatchInstance.batch.end();
+
+        if(enemy.isFinished()){ //Wenn der Bot fertig ist
+            switchTurn();
+            enemy.resetFinished();
+        }
+
+        if(player.getTurn()){ //Man kann den Knopf nur drücken, wenn der Spieler am Zug ist
+            if(endTurnButton.isPressedDelayed()){
+                switchTurn();
+                endTurnButton.reset();
+                Gdx.app.debug("CARDGAME", "KNOPF WURDE GEDRÜCKT");
+            }
+        }else{
+            if(endTurnButton.isPressedDelayed()){
+                messageBox.showMessage("Du bist leider nicht am Zug!");
+                endTurnButton.reset();
+            }
+        }
     }
 
     /**
@@ -63,8 +82,9 @@ public class CardGame {
      * Wechselt den Zug von Spieler auf Gegner oder andersherum.
      */
     public void switchTurn(){
-        Gdx.app.debug(TAG, "Turn switched");
-        playerTurn = !playerTurn;
+        messageBox.showMessage("Zug beendet.");
+        player.setTurn(!player.getTurn());
+        enemy.setTurn(!enemy.getTurn());
     }
 
     /**
@@ -85,6 +105,17 @@ public class CardGame {
      */
     public void startGame(Player player, Enemy enemy){
         state = true;
+
+        float turnChance = (int) (Math.random() * 100f); //Die Chance anzufangen
+        boolean playerTurn = false;
+
+        if(turnChance > 50) playerTurn = true; //else playerTurn = false
+
+        if(playerTurn) messageBox.showMessage("Du fängst an!");
+        else messageBox.showMessage("Der Gegner fängt an!");
+
+        player.setTurn(playerTurn);
+        enemy.setTurn(!playerTurn);
 
         enemy.setLife(3000);
         this.enemy = enemy;

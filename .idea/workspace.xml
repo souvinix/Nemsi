@@ -35,10 +35,9 @@
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/GameSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/MessageBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/MessageBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/PlayingPossibilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/PlayingPossibilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/UI/Font.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/UI/Font.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/ScreenHandling/differentScreens/MenuScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/ScreenHandling/differentScreens/MenuScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,22 +236,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="731" y="253" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610905908495" />
-    <state width="1876" height="159" key="GridCell.Tab.0.bottom" timestamp="1611599891454">
+    <state width="1876" height="159" key="GridCell.Tab.0.bottom" timestamp="1611623280943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="159" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611599891454" />
-    <state width="1876" height="159" key="GridCell.Tab.0.center" timestamp="1611599891454">
+    <state width="1876" height="159" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611623280943" />
+    <state width="1876" height="159" key="GridCell.Tab.0.center" timestamp="1611623280943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="159" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611599891454" />
-    <state width="1876" height="159" key="GridCell.Tab.0.left" timestamp="1611599891454">
+    <state width="1876" height="159" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611623280943" />
+    <state width="1876" height="159" key="GridCell.Tab.0.left" timestamp="1611623280943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="159" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611599891454" />
-    <state width="1876" height="159" key="GridCell.Tab.0.right" timestamp="1611599891454">
+    <state width="1876" height="159" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611623280943" />
+    <state width="1876" height="159" key="GridCell.Tab.0.right" timestamp="1611623280943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="159" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611599891454" />
+    <state width="1876" height="159" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611623280943" />
     <state width="1876" height="281" key="GridCell.Tab.1.bottom" timestamp="1610890428335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

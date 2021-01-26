@@ -92,4 +92,20 @@ public class Player extends PlayingPossibilities{
             super.drawCardCounter = GameSettings.drawCardSeconds;
         }
     }
+
+    @Override
+    public void setTurn(boolean bool) {
+        super.setTurn(bool);
+        if(!turn) saveFieldcards();
+        else{
+            cardCounter = 0;
+            drawCard(1);
+        }
+    }
+
+    @Override
+    public void saveFieldcards() {
+        Gdx.app.debug("Spieler", "Spielfeldkarten wurden aktualisiert!");
+        CardGameInstances.playerFieldcards = fieldcards;
+    }
 }
