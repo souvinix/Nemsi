@@ -18,7 +18,8 @@ public class DesktopLauncher {
 //		config.fullscreen = true;
 		config.resizable = false;
 		config.foregroundFPS = 144;
-		config.y = 0;
+		config.y = 200;
+		config.x = -1800; //Zweiter Monitor
 
 		new LwjglApplication(new MainGameClass(), config);
 	}

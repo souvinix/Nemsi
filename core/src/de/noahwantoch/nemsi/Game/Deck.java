@@ -47,7 +47,7 @@ public class Deck {
         drawingPosition = position;
     }
 
-    public void sortDeck(){
+    public void sortDeck(){ //Sortieralgorithmus
         for(int x = 0; x < cards.size() - 1; x++){
             for(int i = 0; i < cards.size() - 1; i++){
 
@@ -72,6 +72,8 @@ public class Deck {
         }
     }
 
+    //Wird verwenden um ein spezifisches Element nach oben zu tun, um es dann zu ziehen
+    //Siehe: PlayingPossibilities.drawSpecificElement()
     public int putSpecificElementAbove(int number, Element element){
         ArrayList<Card> elementCards = new ArrayList<>();
 

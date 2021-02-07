@@ -25,7 +25,7 @@ public interface GameSettings {
     int lifeFontSize = 70; //Die Visualisierung des Lebens der PlayingPossibilities-Objects (Spieler und Enemy)
     int endTurnButton_size = 4; //Die Größe des Button, wo man seinen Zug beenden kann
     int ai_secondsPerAction = 2; //Solange braucht die KI, um die nächste Karte zu spielen (Sekunden)
-    int maxTributes = 3;
+    int maxTributeLevel = 3;
 
     float cardSize = 2.5f; //Kartengröße
     float symbolSize = 3f; //Symbol-Größe auf den Karten

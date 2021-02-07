@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import java.util.ArrayList;
+
 import de.noahwantoch.nemsi.EffectModule;
 import de.noahwantoch.nemsi.TextureHandling.TextureEnum;
 import de.noahwantoch.nemsi.UI.Button;
@@ -18,6 +20,10 @@ import de.noahwantoch.nemsi.Utility.BatchInstance;
  */
 public class CardGame {
 
+    public static MessageBox yesNoMessageBox;
+    public static MessageBox okayMessageBox;
+    public static MessageBox effectMessageBox; //for the player
+
     private static final String TAG = CardGame.class.getSimpleName();
 
     private de.noahwantoch.nemsi.Game.Player player;
@@ -27,15 +33,19 @@ public class CardGame {
 
     private final Sprite board;
 
-    private MessageBox messageBox;
-
     private Button endTurnButton;
+
+    private int playerStartHand = GameSettings.handcardsStartNumber;
+    private int enemyStartHand = GameSettings.handcardsStartNumber;
 
     public CardGame(){
         //Die Textur des "Spielbretts"
         board = new Sprite(new Texture(TextureEnum.BOARD.getPath()));
         board.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        messageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
+
+        yesNoMessageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
+        okayMessageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
+        effectMessageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
 
         endTurnButton = new Button(GameSettings.endTurnButtonPosition.x, GameSettings.endTurnButtonPosition.y, 5f, "Zug beenden");
         endTurnButton.setFunction(false);
@@ -53,7 +63,9 @@ public class CardGame {
         enemy.draw(delta);
         player.draw(delta);
 
-        messageBox.draw(BatchInstance.batch, delta);
+        yesNoMessageBox.draw(BatchInstance.batch, delta);
+        okayMessageBox.draw(BatchInstance.batch, delta);
+        effectMessageBox.draw(BatchInstance.batch, delta);
 
         endTurnButton.draw(delta);
         BatchInstance.batch.end();
@@ -71,8 +83,11 @@ public class CardGame {
             }
         }else{
             if(endTurnButton.isPressedDelayed()){
-                messageBox.showMessage("Du bist leider nicht am Zug!");
+                okayMessageBox.showMessage("Du bist leider nicht am Zug!");
+
+                okayMessageBox.reset();
                 endTurnButton.reset();
+                effectMessageBox.reset();
             }
         }
     }
@@ -82,7 +97,7 @@ public class CardGame {
      * Wechselt den Zug von Spieler auf Gegner oder andersherum.
      */
     public void switchTurn(){
-        messageBox.showMessage("Zug beendet.");
+        okayMessageBox.showMessage("Zug beendet.");
         player.setTurn(!player.getTurn());
         enemy.setTurn(!enemy.getTurn());
     }
@@ -111,8 +126,16 @@ public class CardGame {
 
         if(turnChance > 50) playerTurn = true; //else playerTurn = false
 
-        if(playerTurn) messageBox.showMessage("Du fängst an!");
-        else messageBox.showMessage("Der Gegner fängt an!");
+        if(playerTurn){
+            okayMessageBox.showMessage("Du fängst an!");
+            Gdx.app.debug(TAG, "Der Spieler fängt an!");
+            playerStartHand -= 1;
+        }
+        else{
+            okayMessageBox.showMessage("Der Gegner fängt an!");
+            Gdx.app.debug(TAG, "Der Gegner fängt an!");
+            enemyStartHand -= 1;
+        }
 
         player.setTurn(playerTurn);
         enemy.setTurn(!playerTurn);
@@ -121,17 +144,17 @@ public class CardGame {
         this.enemy = enemy;
 
         //FOR TESTING
-        Deck deck = new Deck();
-        deck.addCard(new Card("TEST_KARTE", 30, 30, Element.ANTIMATTER, new Effect("Heile eine Animaterie-Karte", EffectModule.HEAL_N, 10, Element.ANTIMATTER)),
-                    new Card("TEST_KARTE", 30, 30, Element.WIND, new Effect("Heile eine Wind-Karte", EffectModule.HEAL_N, 10, Element.WIND)),
-                    new Card("Heilerin", 20, 3000, Element.NATURE, new Effect("Heile dich selbst um 240.", EffectModule.HEAL_HERO, 240), new Tribute(Element.ANTIMATTER, 1)),
-                    new Card("BESCHTE HEILERIN", 1, 1, Element.ICE, new Effect("Heile dein Team um 400", EffectModule.HEAL_TEAM, 400, Element.WIND)) );
-
-        player.setDeck(deck);
+//        Deck deck = new Deck();
+//        deck.addCard(new Card("TEST_KARTE", 30, 30, Element.ANTIMATTER, new Effect("Heile eine Animaterie-Karte", EffectModule.HEAL_N, 10, Element.ANTIMATTER)),
+//                    new Card("TEST_KARTE", 30, 30, Element.WIND, new Effect("Heile eine Wind-Karte", EffectModule.HEAL_N, 10, Element.WIND)),
+//                    new Card("Heilerin", 20, 3000, Element.NATURE, new Effect("Heile dich selbst um 240.", EffectModule.HEAL_HERO, 240), new Tribute(Element.ANTIMATTER, 1)),
+//                    new Card("BESCHTE HEILERIN", 1, 1, Element.ICE, new Effect("Heile dein Team um 400", EffectModule.HEAL_TEAM, 400, Element.WIND)) );
+//
+//        player.setDeck(deck);
         player.setLife(6000);
         this.player = player;
-        this.player.drawCard(GameSettings.handcardsStartNumber);
-        this.enemy.drawCard(GameSettings.handcardsStartNumber);
+        this.player.drawCard(playerStartHand);
+        this.enemy.drawCard(enemyStartHand);
     }
 
     /**

@@ -16,6 +16,7 @@ public class Enemy extends PlayingPossibilities{
 
     private float actionCounter = 0f;
     private boolean isFinished = false;
+    private boolean finishedDrawing = false;
 
     public Enemy(){
         super();
@@ -63,7 +64,6 @@ public class Enemy extends PlayingPossibilities{
     @Override
     public void setDeck(Deck deck) {
         deck.setPosition(GameSettings.EnemyPositions.deckPosition);
-        Gdx.app.debug("Enemy", "Deck: " + deck.getSize());
         super.setDeck(deck);
     }
 
@@ -98,15 +98,36 @@ public class Enemy extends PlayingPossibilities{
     }
 
     @Override
-    public void fromFieldToGraveyard() {
-
-
-
-    }
+    public void fromFieldToGraveyard() {} //Bleibt leer
 
     @Override
     public void checkForInteraction() {
         super.checkForInteraction();
+
+        ArrayList<Integer> selectedCards = new ArrayList<>(); //Indicies der selektierten Karten --> z.B. {0, 2, 5}
+
+        for(int i = 0; i < CardGameInstances.enemy_fieldcards.size(); i++){ //Die selektierten Karten werden gesucht und in die Liste gepackt
+            if(CardGameInstances.enemy_fieldcards.get(i).isSelected()) selectedCards.add(i);
+        }
+
+        for(int i = 0; i < fieldcards.size(); i++){
+            if(touchDetector.isHoveredOverRectangle(fieldcards.get(i).getX(), fieldcards.get(i).getY(), GameSettings.cardWidth, GameSettings.cardHeight)){ //wenn man über eine Karte drüber "hovered"
+                if(fieldcards.get(i).getSize() == 1f){
+                    fieldcards.get(i).reinitialize(GameSettings.cardZoom);
+                }
+                if(Gdx.input.justTouched()){
+                    if(fieldcards.get(i).isSelected()){ //i ist in fieldcards (als value, nicht als index)
+                        fieldcards.get(i).deselect();
+                    }else{
+                        fieldcards.get(i).select();
+                    }
+                }
+            }else{ //wenn man nicht mehr über eine Karte drüber "hovered"
+                if(fieldcards.get(i).getSize() == GameSettings.cardZoom){
+                    fieldcards.get(i).reinitialize(1f);
+                }
+            }
+        }
     }
 
     @Override
@@ -141,7 +162,6 @@ public class Enemy extends PlayingPossibilities{
 
             saveFieldcards();
         }else {
-            Gdx.app.debug("Gegner", "Gescheiterte Beschwörung: " + handcardIndex + ", name: " + handcards.get(handcardIndex).getName() + ", Tribute: " + handcards.get(handcardIndex).getTribute().getNeededCards() + " von dem Element: " + handcards.get(handcardIndex).getTribute().getNeededElement());
             cardCounter += 1;
         }
     }
@@ -166,10 +186,14 @@ public class Enemy extends PlayingPossibilities{
         super.moveCardsAnimation(GameSettings.EnemyPositions.handPosition);
         super.updateCardAnimation(delta, GameSettings.EnemyPositions.deckPosition, false);
 
-        /** STATEMENTS FOR ARTIFICIAL INTELLIGENCE */
-        actionCounter += delta;
+        if(currentDrawingCards.size() == 0){ //Der Bot zieht erst zu Ende und spielt dann erst
+            finishedDrawing = true;
+        }else finishedDrawing = false;
 
-        if(turn && actionCounter >= GameSettings.ai_secondsPerAction){
+        /** STATEMENTS FOR ARTIFICIAL INTELLIGENCE */
+        if(finishedDrawing) actionCounter += delta;
+
+        if(turn && actionCounter >= GameSettings.ai_secondsPerAction && finishedDrawing){
             if(cardCounter >= GameSettings.cardsPerTurn){ //Zug beenden, wenn die AI keine Karte mehr beschwören kann (UND nicht mehr angreifen kann)
                 finishTurn();
             }else{
@@ -189,21 +213,17 @@ public class Enemy extends PlayingPossibilities{
         if(turn){
             isFinished = false;
             actionCounter = 0;
-            cardCounter = 0;
         }
-        else if(!turn) saveFieldcards();
     }
     @Override
     public void saveFieldcards(){
-        Gdx.app.debug("Gegner", "Spielfeldkarten wurden aktualisiert!");
-        CardGameInstances.enemyFieldcards = fieldcards;
+        CardGameInstances.enemy_fieldcards = fieldcards;
     }
     public boolean isFinished(){
         return isFinished;
     }
     private void finishTurn(){
         isFinished = true;
-        Gdx.app.debug("Gegner", "Gegner beendet den Zug.");
     }
 
     public void resetFinished(){
@@ -213,11 +233,16 @@ public class Enemy extends PlayingPossibilities{
     /** FUNCTIONS FOR ARTIFICIAL INTELLIGENCE */
 
     private void summonBestCard(){
-        summonCardByTribute(GameSettings.maxTributes + 1); //Beschwört die beste Karte von der Anzahl an Tributen (rekursiv)
+        summonCardByTribute(GameSettings.maxTributeLevel + 1); //Beschwört die beste Karte von der Anzahl an Tributen (rekursiv)
     }
 
 
     private void summonCardByTribute(int tributeValue){
+
+//        for(Card card : handcards){
+//            Gdx.app.debug("Gegner Handkarten: ", card.getName() + "(" + card.getTribute().getNeededCards() + ")," + "tributeValue: " + tributeValue + ", fieldcards.size(): " + fieldcards.size());
+//        }
+
         if(tributeValue == 0){ //Wenn keine Tribute gefordert sind
             for(int i = 0; i < handcards.size(); i++){
                 if(handcards.get(i).getTribute().getNeededCards() == tributeValue){
@@ -246,6 +271,12 @@ public class Enemy extends PlayingPossibilities{
                             summon = true;
                             summonIndex = i;
                             break;
+                            //Wenn eine Karten beschworen werden will, welche z.B. 2 Tribute benötigt, aber nur eine Karte auf dem Feld liegt, die mit einem Tribut beschworen wurde --> man muss abwiegen, ob der Effekt eventuell passend ist und/oder, ob die stats des Monsters besser sind
+                        }else if(counter < handcards.get(i).getTribute().getNeededCards() && handcards.get(i).getTribute().getNeededCards() < fieldcards.size()){
+                            //Es wird fürs Erste erst mal übersprungen
+                            if(i == handcards.size() - 1){
+                                cardCounter += 1;
+                            }else continue;
                         }
                     }
                 }
@@ -260,7 +291,15 @@ public class Enemy extends PlayingPossibilities{
                         if(currentLowest == 0){ //Erste Summe wird in currentLowest initialisiert
                             currentLowest = valueSums.get(j);
                         }
-                        if(currentLowest > valueSums.get(j)){
+
+                        boolean exists = false;
+                        for(int x : indicies){
+                            if(x == j) exists = true; //Index existiert bereits in indicies
+                        }
+
+                        if(exists) continue;
+
+                        if(currentLowest > valueSums.get(j) && !exists){
                             currentIndex = j;
                         }
                     }
@@ -268,14 +307,13 @@ public class Enemy extends PlayingPossibilities{
                     valueSums.remove(currentIndex);
                 }
 
-                Gdx.app.debug("BUG", "indicies: " + indicies.toString() + ", Beschwörung: " + handcards.get(summonIndex).getName());
                 for(int i : indicies){
                     fieldcards.get(i).destroy();
                 }
 
                 summonDirectly(summonIndex);
 
-            }else if(!summon && tributeValue >= 0){summonCardByTribute(tributeValue - 1); }//Rekursionsverankerung --> tributeValue < 0 ist nicht gültig
+            }else if(!summon && tributeValue >= 0){summonCardByTribute(tributeValue - 1); }//Rekursionsverankerung --> tributeValue < 0 ist nicht gültig --> Rekursiver Aufruf
         }
     }
 
@@ -285,39 +323,57 @@ public class Enemy extends PlayingPossibilities{
      * */
     private void checkEffect(Effect effect){
         if(effect.getEffectModule() == EffectModule.DESTROY_N){ //Dieser Effekt soll nur auf den Spieler gehen
-            if(CardGameInstances.playerFieldcards.size() > 0){ //Wenn der Spieler Feldkarten hat
+            if(CardGameInstances.player_fieldcards.size() > 0){ //Wenn der Spieler Feldkarten hat
                 int currentSelectingIndex = 0;
                 int atkLifeSum = 0; //Summe der Atk und life der verschiedenen Karten vom Spieler, um zu überprüfen, welche die beste Karte ist
+                boolean destruction = false;
 
-                for(int i = 0; i < CardGameInstances.playerFieldcards.size(); i++){ //Beste Karte vom Spieler soll rausgesucht und zerstört werden
-                    if((CardGameInstances.playerFieldcards.get(i).getDamage() + CardGameInstances.playerFieldcards.get(i).getLife()) > atkLifeSum){
-                        atkLifeSum = CardGameInstances.playerFieldcards.get(i).getDamage() + CardGameInstances.playerFieldcards.get(i).getLife();
-                        currentSelectingIndex = i;
+                for(int i = 0; i < CardGameInstances.player_fieldcards.size(); i++){ //Beste Karte vom Spieler soll rausgesucht und zerstört werden
+                    if((CardGameInstances.player_fieldcards.get(i).getDamage() + CardGameInstances.player_fieldcards.get(i).getLife()) > atkLifeSum){
+                        if(effect.getTarget() != Element.NO_ELEMENT){ //Wenn das Element nicht egal ist
+                            if(effect.getTarget() == CardGameInstances.player_fieldcards.get(i).getElement()){
+                                atkLifeSum = CardGameInstances.player_fieldcards.get(i).getDamage() + CardGameInstances.player_fieldcards.get(i).getLife();
+                                currentSelectingIndex = i;
+                                destruction = true;
+                            }
+                        }else{ //Wenn das Element egal ist
+                            atkLifeSum = CardGameInstances.player_fieldcards.get(i).getDamage() + CardGameInstances.player_fieldcards.get(i).getLife();
+                            currentSelectingIndex = i;
+                        }
                     }
                 }
 
-                CardGameInstances.playerFieldcards.get(currentSelectingIndex).destroy();
+                if(destruction) CardGameInstances.player_fieldcards.get(currentSelectingIndex).destroy();
 
             }else{} //Wenn er keine hat, soll der Effekt nicht aktiviert werden
+        }
+
+        else if(effect.getEffectModule() == EffectModule.DRAW_N){ //Zieh-Effekt für den Gegner
+            if(effect.getTarget() == Element.NO_ELEMENT){
+                drawCard(effect.getAmount());
+            }else{
+                drawSpecificElement(effect.getAmount(), effect.getTarget());
+            }
+        }
+
+        else if(effect.getEffectModule() == EffectModule.HEAL_HERO){
+            heal(effect.getAmount()); //Der Held wird um die bestimmte Menge geheilt
         }
 
         saveFieldcards();
     }
 
     private boolean checkPossibleSummon(){ //Überprüft, ob die AI etwas beschwören kann
-        boolean result = false;
-
         for(Card handcard : handcards){
             if(handcard.getTribute().getNeededCards() == 0){
-                result = true;
+                return true;
             }else{ // > 0
                 if(handcard.getTribute().getNeededCards() <= fieldcards.size()){
-                    result = true;
+                    return true;
                 }
             }
         }
-
-        return result;
+        return false;
     }
 
 }

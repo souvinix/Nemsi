@@ -29,13 +29,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19850761-2329-4cff-8021-0f659a157987" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/All_Cards.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/All_Cards.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/CardGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/CardGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/CardGameInstances.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/CardGameInstances.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Deck.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Deck.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Enemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/PlayingPossibilities.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/de/noahwantoch/nemsi/Game/PlayingPossibilities.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/All_Cards.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/All_Cards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGameInstances.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/CardGameInstances.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Deck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/GameSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/PlayingPossibilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/de/noahwantoch/nemsi/Game/PlayingPossibilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/classes/java/main/de/noahwantoch/nemsi/desktop/DesktopLauncher.class" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/classes/java/main/de/noahwantoch/nemsi/desktop/DesktopLauncher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/src/de/noahwantoch/nemsi/desktop/DesktopLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/de/noahwantoch/nemsi/desktop/DesktopLauncher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,16 +101,17 @@
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Projekte\Nemsi\android\assets\Fonts" />
-      <recent name="D:\Projekte\Nemsi" />
-      <recent name="D:\Projekte\RPG\android\assets" />
-      <recent name="D:\Projekte\RPG\android\assets\Fonts" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projekte\Nemsi" />
       <recent name="D:\Projekte\Nemsi\android\assets" />
       <recent name="D:\Projekte\Nemsi\android\assets\Fonts" />
+      <recent name="D:\Projekte\RPG\android\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projekte\Nemsi\core\src\de\noahwantoch\nemsi" />
+      <recent name="D:\Projekte\Nemsi\core\src\de\noahwantoch\nemsi\Game" />
+      <recent name="D:\Projekte\Nemsi\android\assets\Fonts" />
+      <recent name="D:\Projekte\Nemsi" />
       <recent name="D:\Projekte\RPG\android\assets" />
     </key>
   </component>
@@ -234,25 +258,29 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="731" y="253" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610905908495" />
-    <state width="2516" height="230" key="GridCell.Tab.0.bottom" timestamp="1611800312632">
+    <state width="2516" height="230" key="GridCell.Tab.0.bottom" timestamp="1612707610518">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2516" height="230" key="GridCell.Tab.0.bottom/-1920.-9.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1611800312632" />
+    <state width="2516" height="230" key="GridCell.Tab.0.bottom/-1920.-9.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1611859128820" />
+    <state width="2516" height="230" key="GridCell.Tab.0.bottom/-1920.166.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1612707610518" />
     <state width="1876" height="159" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611623280943" />
-    <state width="2516" height="230" key="GridCell.Tab.0.center" timestamp="1611800312632">
+    <state width="2516" height="230" key="GridCell.Tab.0.center" timestamp="1612707610518">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2516" height="230" key="GridCell.Tab.0.center/-1920.-9.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1611800312632" />
+    <state width="2516" height="230" key="GridCell.Tab.0.center/-1920.-9.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1611859128820" />
+    <state width="2516" height="230" key="GridCell.Tab.0.center/-1920.166.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1612707610518" />
     <state width="1876" height="159" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611623280943" />
-    <state width="2516" height="230" key="GridCell.Tab.0.left" timestamp="1611800312632">
+    <state width="2516" height="230" key="GridCell.Tab.0.left" timestamp="1612707610518">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2516" height="230" key="GridCell.Tab.0.left/-1920.-9.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1611800312632" />
+    <state width="2516" height="230" key="GridCell.Tab.0.left/-1920.-9.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1611859128820" />
+    <state width="2516" height="230" key="GridCell.Tab.0.left/-1920.166.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1612707610518" />
     <state width="1876" height="159" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611623280943" />
-    <state width="2516" height="230" key="GridCell.Tab.0.right" timestamp="1611800312632">
+    <state width="2516" height="230" key="GridCell.Tab.0.right" timestamp="1612707610518">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2516" height="230" key="GridCell.Tab.0.right/-1920.-9.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1611800312632" />
+    <state width="2516" height="230" key="GridCell.Tab.0.right/-1920.-9.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1611859128820" />
+    <state width="2516" height="230" key="GridCell.Tab.0.right/-1920.166.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1612707610518" />
     <state width="1876" height="159" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611623280943" />
     <state width="1876" height="281" key="GridCell.Tab.1.bottom" timestamp="1610890428335">
       <screen x="0" y="0" width="1920" height="1040" />

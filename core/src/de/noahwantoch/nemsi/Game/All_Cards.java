@@ -28,7 +28,8 @@ public class All_Cards{
             new Card("Sky", 220, 140, Element.WIND, new Effect("Ziehe eine Wind-Karte.", EffectModule.DRAW_N, 1, Element.WIND)),
             new Card("Sensei", 300, 300, Element.WIND, new Effect("Zerstöre 2 Wind-Karten", EffectModule.DESTROY_N, 2, Element.WIND), new Tribute(Element.NO_ELEMENT, 1)),
             new Card("Balso-Diener", 30, 20, Element.WIND, new Effect("Ziehe eine Karte.", EffectModule.DRAW_N, 1)),
-            new Card("Elisabeth", 120, 100, Element.WIND, new Effect("Ziehe 3 Karten.", EffectModule.DRAW_N, 3))
+            new Card("Elisabeth", 120, 100, Element.WIND, new Effect("Ziehe 3 Karten.", EffectModule.DRAW_N, 3)),
+            new Card("Windwache", 1000, 1500, Element.WIND, new Effect("Heile dein Team um 1000", EffectModule.HEAL_TEAM, 1000), new Tribute(Element.WIND, 3))
     };
 
     public static Card[] nature_cards = {
@@ -52,7 +53,7 @@ public class All_Cards{
             new Card("Eis-Vikinger", 200, 400, Element.ICE, new Effect("Zerstöre eine Antimatierie-Karte.", EffectModule.DESTROY_N, 1, Element.ANTIMATTER)),
             new Card("Wächterin Eris", 100, 800, Element.ICE, new Effect("Heile eine Karte um 800.", EffectModule.HEAL_N, 800), new Tribute(Element.ICE, 1)),
             new Card("Gefallener Drache", 700, 1200, Element.ICE, new Effect("Heile eine Wind-Karte um 1500.", EffectModule.HEAL_N, 1500, Element.WIND), new Tribute(Element.ICE, 2)),
-            new Card("Königin Emilia", 1000, 1500, Element.ICE, new Effect("Heile alle verbündeten Karten um 1000.", EffectModule.HEAL_TEAM, 1000), new Tribute(Element.NATURE, 2))
+            new Card("Königin Emilia", 1000, 1500, Element.ICE, new Effect("Heile alle verbündeten Karten um 1000.", EffectModule.HEAL_TEAM, 1000), new Tribute(Element.NATURE, 3))
     };
 
 

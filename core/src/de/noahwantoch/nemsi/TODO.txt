@@ -1,0 +1,20 @@
+CardGame:
+
+- Anzahl der Karten (Decks, Friedhöfe) visualisieren --> Font
+- Hand- und Feldkarten limitieren
+- BUG: Tributbeschwörung Gegner
+- Tributbeschwörung Gegner: auf Element achten
+- Effekte Gegner alle fertig programmieren mit Beachtung auf das Element
+
+Menu:
+
+- Shop anfangen
+
+WorldGame:
+
+- Erster Raum
+- Character-Movement
+
+Options:
+
+- Einfach ein paar Werte umstellen können xd

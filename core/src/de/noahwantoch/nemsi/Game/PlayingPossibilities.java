@@ -53,10 +53,6 @@ public class PlayingPossibilities {
     public int cardsPerTurn = GameSettings.cardsPerTurn;
     public int cardCounter;
 
-    public MessageBox okayMessageBox;
-    public MessageBox yesNoMessageBox;
-
-    public MessageBox effectYesNoMessageBox;
     public Effect currentEffect;
 
     public boolean summonCard = false;
@@ -64,12 +60,6 @@ public class PlayingPossibilities {
     public boolean selectingTributes = false;
 
     public TributeHandler tributeHandler;
-
-    public ArrayList<Integer> selectedFieldcards;
-    public ArrayList<Integer> selectedHandcards;
-    public ArrayList<Integer> selectedGraveyardcards;
-    public ArrayList<Integer> selectedBanishedCards;
-    public ArrayList<Integer> selectedEnemyCards;
 
     public Effect currentExecutingEffect;
 
@@ -83,12 +73,6 @@ public class PlayingPossibilities {
         deck = new de.noahwantoch.nemsi.Game.Deck();
         graveyard = new de.noahwantoch.nemsi.Game.Deck();
         banishedCards = new de.noahwantoch.nemsi.Game.Deck();
-
-        selectedFieldcards = new ArrayList<>();
-        selectedHandcards = new ArrayList<>();
-        selectedGraveyardcards = new ArrayList<>();
-        selectedBanishedCards = new ArrayList<>();
-        selectedEnemyCards = new ArrayList<>();
 
         handcards = new ArrayList<>();
         fieldcards = new ArrayList<>();
@@ -110,10 +94,6 @@ public class PlayingPossibilities {
 
         touchDetector = new TouchDetector();
 
-        okayMessageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.OKAY_MESSAGE_BOX);
-        yesNoMessageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
-
-        effectYesNoMessageBox = new MessageBox(GameSettings.messageBoxSize, MessageBox.MessageBoxType.YES_NO_MESSAGE_BOX);
         currentEffect = null;
 
         this.tributeHandler = new TributeHandler();
@@ -181,18 +161,6 @@ public class PlayingPossibilities {
      */
     public void checkDrawingCondition(){}
 
-
-    /**
-     * @author Noah O. Wantoch
-     * Entfernt die ausgewählten Karten
-     */
-    public void clearSelection(){
-        for(int index : selectedFieldcards){
-            fieldcards.get(index).deselect();
-        }
-        selectedFieldcards.clear();
-    }
-
     /**
      * @author Noah. O. Wantoch
      * Das Game-Object (Player, Enemy) wird gemalt
@@ -217,59 +185,6 @@ public class PlayingPossibilities {
         }
 
         if(destroyedCard) destroyCard(currentDestroyedCard);
-        destroyedCard = false;
-
-        //Der aktuell auslösende Effekt
-        if(currentExecutingEffect != null){
-            if(healing){ //single healing
-                if(currentExecutingEffect.getTarget() == Element.NO_ELEMENT){ //Wenn es kein bestimmtes Element sein muss
-                    if(selectedFieldcards.size() > 0){ //Wenn Karten ausgewählt wurden
-                        fieldcards.get(selectedFieldcards.get(0)).heal(currentExecutingEffect.getAmount());
-                        fieldcards.get(selectedFieldcards.get(0)).updateValues();
-                        clearSelection();
-                        healing = false;
-                        currentExecutingEffect = null;
-                    }
-                }else{ //Wenn die Zielkarte ein bestimmtes Element haben muss
-                    boolean healedCard = false;
-                    boolean healingPossible = false;
-
-                    for(Card card : fieldcards){ //Überprüfen, ob überhaupt eine Karte geheilt werden kann
-                        if(card.getElement() == currentExecutingEffect.getTarget()){
-                            healingPossible = true;
-                        }
-                    }
-
-                    if(healingPossible){
-                        for(int index : selectedFieldcards){ //Die ausgewählten Karten heilen (eine).
-                            if(fieldcards.get(index).getElement() == currentExecutingEffect.getTarget()){ //Wenn man beim Beschwören schon eine Karte ausgewählt hat
-                                fieldcards.get(index).heal(currentExecutingEffect.getAmount());
-                                fieldcards.get(index).updateValues(); //Schnelles Updaten der Lebenszahl
-                                healedCard = true;
-                                break; //Keine weiteren Karten heilen
-                            }
-                        }
-                    }
-
-                    if(!healingPossible){ //Wenn das Heilen nicht möglich ist
-                        okayMessageBox.showMessage("Leider konnte keine Karte geheilt werden.");
-                        healing = false;
-                        currentExecutingEffect = null;
-                    }
-
-                    if(healedCard){ //Wenn eine Karte geheilt wurde
-                        healing = false;
-                        currentExecutingEffect = null;
-                        saveFieldcards(); //Das Spielfeld des PlayingPossibilities-Object wird gespeichert
-                    }
-                }
-
-            }else if(damaging){
-
-            }else if(destroying){
-
-            }
-        }
 
         //Die oberste Karten (die gezogen wird), wird gemalt
         if(currentDrawingCards.size() > 0){
@@ -282,59 +197,13 @@ public class PlayingPossibilities {
         }
 
         //Touch-Detection wird erkannt
-        if(!okayMessageBox.getState() && !yesNoMessageBox.getState() && !effectYesNoMessageBox.getState()){
+        if(!CardGame.okayMessageBox.getState() && !CardGame.yesNoMessageBox.getState() && !CardGame.effectMessageBox.getState()){
             checkForInteraction();
-        }
-
-        if(!effectYesNoMessageBox.getState()){
-            if(effectYesNoMessageBox.getResult()){ //Wenn "Ja" gedrückt wurde, nachdem etwas gedrückt wurde
-                activateEffect(currentEffect);
-            }
-
-            effectYesNoMessageBox.reset(); //result wird zurückgesetzt, damit es nur einmal abgefragt wird
         }
 
         //Handkarten werden gemalt
         for(Card handcard : handcards){
             handcard.draw(delta);
-        }
-
-        okayMessageBox.draw(BatchInstance.batch, delta);
-        yesNoMessageBox.draw(BatchInstance.batch, delta);
-        effectYesNoMessageBox.draw(BatchInstance.batch, delta);
-
-        if(!selectingTributes){ //Wenn man gerade keine Karten für eine Tributbeschwörung auswählt
-            //Eine Karte wird beschworen
-            if(!yesNoMessageBox.getState() && !okayMessageBox.getState()){
-                if(yesNoMessageBox.getResult()){ // Wenn "Ja" gedrückt wurde
-                    if(handcards.get(currentSummonIndex).getTribute().getNeededCards() > 0){ //Wenn ein oder mehrere Tribute erforderlich sind
-                        okayMessageBox.showMessage("Wähle jetzt Tribute aus.");
-                        selectingTributes = true;
-                    }else{
-                        summonDirectly(currentSummonIndex);
-                    }
-                    yesNoMessageBox.reset();
-                    okayMessageBox.reset();
-                }
-            }
-        }else{
-            if(selectedFieldcards.size() == handcards.get(currentSummonIndex).getTribute().getNeededCards()){ //Wenn man soviele Karten wie benötigt, ausgewählt hat
-                if(handcards.get(currentSummonIndex).getTribute().getNeededElement() == Element.NO_ELEMENT){ //Wenn kein spezifisches Element benötigt wird
-                    fromFieldToGraveyard(); //Ausgewählten Karten auf den Friedhof schicken
-                    summonDirectly(currentSummonIndex);
-                }else{
-                    for(int i = 0; i < selectedFieldcards.size(); i++) {
-                        if(fieldcards.get(selectedFieldcards.get(i)).getElement() != handcards.get(currentSummonIndex).getTribute().getNeededElement()){
-                            okayMessageBox.showMessage("Es wird leider ein anderes Element benötigt: " + handcards.get(currentSummonIndex).getTribute().getNeededElement());
-                            break;
-                        }else{
-                            fromFieldToGraveyard(); //Ausgewählten Karten auf den Friedhof schicken
-                            summonDirectly(currentSummonIndex);
-                            selectingTributes = false;
-                        }
-                    }
-                }
-            }
         }
 
         lifeFont.draw(BatchInstance.batch); //Die Visualisierung der Lebenszahl
@@ -345,16 +214,7 @@ public class PlayingPossibilities {
      * Schickt die Karten von dem Feld auf den Friedhof
      */
     public void fromFieldToGraveyard(){
-        for(int i = 0; i < selectedFieldcards.size(); i++){
-            int lastIndex = selectedFieldcards.get(selectedFieldcards.size() - 1);
-            Card card = fieldcards.get(lastIndex);
-            fieldcards.remove(lastIndex);
-            card.deselect();
-            graveyard.addCard(card);
-            selectedFieldcards.remove(selectedFieldcards.size() - 1);
-        }
-
-        saveFieldcards();
+        //Tochterklassen überschreiben diese Funktion
     }
 
     /**
@@ -371,37 +231,6 @@ public class PlayingPossibilities {
                 }
             }else{
                 handcards.get(i).setPosition(handcards.get(i).getX(), heightOffset);
-            }
-        }
-
-        for(int i = 0; i < fieldcards.size(); i++){
-            if(touchDetector.isHoveredOverRectangle(fieldcards.get(i).getX(), fieldcards.get(i).getY(), GameSettings.cardWidth, GameSettings.cardHeight)){ //wenn man über eine Karte drüber "hovered"
-                if(fieldcards.get(i).getSize() == 1f){
-                    fieldcards.get(i).reinitialize(GameSettings.cardZoom);
-                }
-                if(Gdx.input.justTouched()){
-                    if(fieldcards.get(i).isSelected()){ //i ist in fieldcards (als value, nicht als index)
-                        fieldcards.get(i).deselect();
-                        if(selectedFieldcards.size() > 0){
-                            int x = 0;
-                            for(int index : selectedFieldcards){
-                                if(index == i){
-                                    x = index;
-                                }
-                            }
-                            if(selectedFieldcards.size() > x){
-                                selectedFieldcards.remove(x);
-                            }
-                        }
-                    }else{
-                        fieldcards.get(i).select();
-                        selectedFieldcards.add(i);
-                    }
-                }
-            }else{ //wenn man nicht mehr über eine Karte drüber "hovered"
-                if(fieldcards.get(i).getSize() == GameSettings.cardZoom){
-                    fieldcards.get(i).reinitialize(1f);
-                }
             }
         }
     }
@@ -465,11 +294,11 @@ public class PlayingPossibilities {
             boolean summon = false;
             Card card = handcards.get(index);
 
-            if (card.getTribute().getNeededCards() > fieldcards.size()) { //Wenn (erst) kein Tribut möglich ist, weil die Feldkarten zu klein sind
-                okayMessageBox.showMessage("Du brauchst mindestens: " + card.getTribute().getNeededCards() + " Karten auf dem Spielfeld zum opfern.");
+            if(card.getTribute().getNeededCards() > fieldcards.size()) { //Wenn (erst) kein Tribut möglich ist, weil die Feldkarten zu klein sind
+                CardGame.okayMessageBox.showMessage("Du brauchst mindestens: " + card.getTribute().getNeededCards() + " Karten auf dem Spielfeld zum opfern.");
             }
 
-            if (card.getTribute().getNeededCards() <= fieldcards.size()) { //Wenn genug Feldkarten existieren
+            if(card.getTribute().getNeededCards() <= fieldcards.size()) { //Wenn genug Feldkarten existieren
                 if (card.getTribute().getNeededElement() != Element.NO_ELEMENT) { //Wenn das Element eine Rolle spielt bei der Tributbeschwörung
                     int counter = 0; //Zähler der gültigen Elemente
                     for (Card fieldcard : fieldcards) {
@@ -480,26 +309,30 @@ public class PlayingPossibilities {
                     if (counter >= card.getTribute().getNeededCards()) { //Erfolgreiche Beschwörung
                         summon = true;
                     } else {
-                        okayMessageBox.showMessage("Du brauchst mindestens: " + card.getTribute().getNeededCards() + " Karten auf dem Spielfeld von dem Element: " + card.getTribute().getNeededElement().toString());
+                        Gdx.app.debug("PlayingPossibilities_BUG(1): ", "state: " + CardGame.okayMessageBox.getState() + ", result: " + CardGame.okayMessageBox.getResult());
+                        CardGame.okayMessageBox.showMessage("Du brauchst mindestens: " + card.getTribute().getNeededCards() + " Karten auf dem Spielfeld von dem Element: " + card.getTribute().getNeededElement().toString());
+                        CardGame.okayMessageBox.reset();
+                        Gdx.app.debug("PlayingPossibilities_BUG(2): ", "state: " + CardGame.okayMessageBox.getState() + ", result: " + CardGame.okayMessageBox.getResult());
                     }
                 } else { //Wenn das Element (erst) keine Rolle spielt bei der Beschwörung
                     summon = true;
                 }
 
                 if (cardCounter == cardsPerTurn) {
-                    okayMessageBox.showMessage("Du hast diese Runde leider schon " + cardCounter + " Karten gespielt :(.");
+                    CardGame.okayMessageBox.showMessage("Du hast diese Runde leider schon " + cardCounter + " Karten gespielt :(.");
+                    CardGame.okayMessageBox.reset();
                     summon = false;
                 }
 
                 if (summon) {
-                    yesNoMessageBox.showMessage("Möchtest du die Karte: " + card.getName() + " beschwören?");
+                    CardGame.yesNoMessageBox.showMessage("Möchtest du die Karte: " + card.getName() + " beschwören?");
+                    CardGame.yesNoMessageBox.reset();
                     summonCard = true;
                     currentSummonIndex = index;
                 }
             }
         }else{ //Wenn man nicht am Zug ist
-            okayMessageBox.showMessage("Du bist leider nicht am Zug!");
-            okayMessageBox.reset();
+            CardGame.okayMessageBox.showMessage("Du bist leider nicht am Zug!");
         }
     }
 
@@ -514,8 +347,9 @@ public class PlayingPossibilities {
         }
 
         if(fieldcards.get(fieldcards.size() - 1).getEffect().getEffectModule() != EffectModule.NO_EFFECT){ //Wenn es ein Effekt hat
-            effectYesNoMessageBox.showMessage("Willst du den Effekt aktivieren?: " + fieldcards.get(fieldcards.size() - 1).getEffect().getDescription());
+            CardGame.effectMessageBox.showMessage("Willst du den Effekt aktivieren?: " + fieldcards.get(fieldcards.size() - 1).getEffect().getDescription());
             currentEffect = fieldcards.get(fieldcards.size() - 1).getEffect();
+            Gdx.app.debug("Beschwörung", "currentEffect: " + currentEffect.getEffectModule().toString());
         }
 
         currentSummonIndex = 0;
@@ -529,7 +363,7 @@ public class PlayingPossibilities {
      * @author Noah O. Wantoch
      * @param effect Der Effekt, der (sicher) ausgelöst wird.
      */
-    private void activateEffect(Effect effect){
+    protected void activateEffect(Effect effect){
         if(effect != null){
             /**
              * ZIEHEN
@@ -682,6 +516,8 @@ public class PlayingPossibilities {
 
     public void setTurn(boolean bool){
         turn = bool;
+        saveFieldcards();
+        cardCounter = 0;
         if(turn) drawCard(1);
     }
 
