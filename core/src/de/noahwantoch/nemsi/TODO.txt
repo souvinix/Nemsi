@@ -1,0 +1,20 @@
+CardGame:
+
+- BUG: Tributbeschwörung Gegner
+- Tributbeschwörung Gegner: auf Element achten
+- Effekte Gegner alle fertig programmieren mit Beachtung auf das Element.
+- Gegner macht ab einer bestimmten Bedingung nichts mehr
+- Visueller BUG: Feldkarte fängt an zu dancen, wenn man mit der Maus an der rechten Kante ist
+
+Menu:
+
+- Shop anfangen
+
+WorldGame:
+
+- Erster Raum
+- Character-Movement
+
+Options:
+
+- Einfach ein paar Werte umstellen können xd

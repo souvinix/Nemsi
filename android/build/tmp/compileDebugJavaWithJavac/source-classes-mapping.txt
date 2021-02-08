@@ -1,0 +1,10 @@
+de/noahwantoch/rpg/BuildConfig.java
+ de.noahwantoch.rpg.BuildConfig
+de/noahwantoch/rpg/R.java
+ de.noahwantoch.rpg.R
+ de.noahwantoch.rpg.R$color
+ de.noahwantoch.rpg.R$drawable
+ de.noahwantoch.rpg.R$string
+ de.noahwantoch.rpg.R$style
+de/noahwantoch/nemsi/AndroidLauncher.java
+ de.noahwantoch.nemsi.AndroidLauncher
