@@ -279,13 +279,24 @@ public class Enemy extends PlayingPossibilities{
                         }
 
                         if(counter >= handcards.get(i).getTribute().getNeededCards()){
-                            summon = true;
-                            summonIndex = i;
-                            break;
+
+                            int elementCounter = 0; //Schaut, wie viele passende Tribute es geben WÜRDE (richtiges Element)
+                            for(int x = 0; x < CardGameInstances.enemy_fieldcards.size(); x++){
+                                if(CardGameInstances.enemy_fieldcards.get(x).getElement() == handcards.get(i).getTribute().getNeededElement() && CardGameInstances.enemy_fieldcards.get(x).getTribute().getNeededCards() < tributeValue){
+                                    elementCounter += 1;
+                                }
+                            }
+
+                            if(elementCounter >= handcards.get(i).getTribute().getNeededCards()){ //Wenn es genügend passende Tribute geben würde, darf diese Karte beschworen werden (Beachtung des Elements)
+                                summon = true;
+                                summonIndex = i;
+                                break;
+                            }
+
                             //Wenn eine Karten beschworen werden will, welche z.B. 2 Tribute benötigt, aber nur eine Karte auf dem Feld liegt, die mit einem Tribut beschworen wurde --> man muss abwiegen, ob der Effekt eventuell passend ist und/oder, ob die stats des Monsters besser sind
-                        }else if(counter < handcards.get(i).getTribute().getNeededCards() && handcards.get(i).getTribute().getNeededCards() < fieldcards.size()){
+                        }else if(counter < handcards.get(i).getTribute().getNeededCards() || handcards.get(i).getTribute().getNeededCards() < fieldcards.size()){
                             //Es wird fürs Erste erst mal übersprungen
-                            if(i == handcards.size() - 1){
+                            if(i == handcards.size() - 1){ //Wenn es bereits die letzte Karte ist (in der Iteration), die überprüft wird
                                 cardCounter += 1;
                             }else continue;
                         }
@@ -293,14 +304,15 @@ public class Enemy extends PlayingPossibilities{
                 }
             }
 
+            //Wenn jetzt bekannt ist, welche beschworen wird
             if(summon){ //Die niedrigsten Werte werden geopfert
                 ArrayList<Integer> indicies = new ArrayList<>();
                 for(int i = 0; i < handcards.get(summonIndex).getTribute().getNeededCards(); i++){ //Wird z.B. 2 Mal ausgeführt (weil 2 Karten geopfert werden)
                     int currentIndex = 0;
-                    int currentLowest = 0;
+                    int currentLowestSum = 0; //Summe der ATK und DEF einer Karte --> Zum Vergleichen, welche nützlicher ist
                     for(int j = 0; j < valueSums.size(); j++){ //Summen vergleichen
-                        if(currentLowest == 0){ //Erste Summe wird in currentLowest initialisiert
-                            currentLowest = valueSums.get(j);
+                        if(currentLowestSum == 0){ //Erste Summe wird in currentLowestSum initialisiert
+                            currentLowestSum = valueSums.get(j);
                         }
 
                         boolean exists = false;
@@ -310,7 +322,7 @@ public class Enemy extends PlayingPossibilities{
 
                         if(exists) continue;
 
-                        if(currentLowest > valueSums.get(j) && !exists){
+                        if(currentLowestSum > valueSums.get(j) && !exists){
                             currentIndex = j;
                         }
                     }
